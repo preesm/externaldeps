@@ -1,7 +1,4 @@
 #!/bin/bash
 
-TMPDIR=`mktemp -d`
-
-mvn clean p2:site jetty:run -Dmaven.repo.local=$TMPDIR
-
-rm -rf $TMPDIR
+REPODIR=${HOME}/.m2/repo-externaldeps/
+mvn clean p2:site jetty:run -Dmaven.repo.local=${REPODIR}

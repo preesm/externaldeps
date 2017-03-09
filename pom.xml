@@ -33,6 +33,15 @@
 			<url>http://mvn.collide.info/content/repositories/releases/</url>
 		</repository>
 
+        <repository>
+            <id>XypronRelease</id>
+            <url>https://www.xypron.de/repository</url>
+        </repository>
+
+        <repository>
+            <id>OpenNMS</id>
+            <url>http://repo.opennms.org/maven2/</url>
+        </repository>
 	</repositories>
 
 	<build>
@@ -52,7 +61,6 @@
 						<configuration>
 							<artifacts>
 
-
 								<!-- ############# -->
 								<!-- Maven Central -->
 								<!-- ############# -->
@@ -61,8 +69,10 @@
 									<source>true</source>
 								</artifact>
 
-								<!-- <artifact> <id>org.jgrapht:jgrapht-ext:jar:1.0.1</id> <source>true</source>
-									</artifact> -->
+								<artifact>
+									<id>net.sourceforge.jexcelapi:jxl:jar:2.6.10</id>
+									<source>true</source>
+								</artifact>
 
 								<artifact>
 									<id>com.github.yannrichet:JMathArray:jar:1.0</id>
@@ -74,6 +84,39 @@
 									<source>true</source>
 								</artifact>
 
+								<artifact>
+									<id>net.sourceforge.saxon:saxon:jar:9.1.0.8</id>
+									<source>true</source>
+								</artifact>
+								
+								<artifact>
+									<id>fm.void.jetm:jetm:jar:1.2.3</id>
+									<source>true</source>
+								</artifact>
+								<artifact>
+									<id>fm.void.jetm:jetm-optional:jar:1.2.3</id>
+									<source>true</source>
+								</artifact>
+								
+								<artifact>
+									<id>jfree:jcommon:jar:1.0.16</id>
+									<source>true</source>
+								</artifact>
+								<artifact>
+									<id>jfree:jfreechart:jar:1.0.13</id>
+									<source>true</source>
+								</artifact>
+								
+								<artifact>
+									<id>logkit:logkit:jar:1.2.2</id>
+									<source>true</source>
+								</artifact>
+								
+								<artifact>
+									<id>org.jacorb:jacorb-idl-compiler:jar:2.3.1</id>
+									<source>true</source>
+								</artifact>
+								
 								<!-- ########### -->
 								<!-- clojars.org -->
 								<!-- ########### -->
@@ -82,16 +125,30 @@
 									<source>true</source>
 								</artifact>
 
-
 								<!-- ################## -->
 								<!-- Collide Repository -->
-								<!-- ################## -->
+								<!-- ##################
 								<artifact>
 									<id>org.nfunk:jep:jar:2.4.1</id>
 									<source>true</source>
+								</artifact> -->
+
+
+								<!-- ####### -->
+								<!-- OpenNMS -->
+								<!-- ####### 
+								<artifact>
+									<id>jep:jep:jar:2.40</id>
+									<source>true</source>
+								</artifact>-->
+								
+								<!-- ############# -->
+								<!-- XypronRelease -->
+								<!-- ############# -->
+								<artifact>
+									<id>org.gnu.glpk:glpk-java:1.0.32</id>
+									<source>true</source>
 								</artifact>
-
-
 							</artifacts>
 						</configuration>
 					</execution>
