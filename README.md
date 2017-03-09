@@ -13,4 +13,4 @@ This simple maven configuration file does the job in 3 steps:
  - then `p2-maven-plugin` converts (or re-bundle) the jars as OSGi bundles (see https://github.com/reficio/p2-maven-plugin);
  - finaly a p2 repository is generated with all the re-bundled jars and their transitive dependencies.
  
-This project is distributed under the CeCILL-C license (cee LICENSE file).
+This project is distributed under the CeCILL-C license (see LICENSE file).
