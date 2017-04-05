@@ -14,8 +14,8 @@
 		</pluginRepository>
 	</pluginRepositories>
 
+	<!-- Use this section to declare new maven repository -->
 	<repositories>
-
 		<repository>
 			<id>Maven Central</id>
 			<url>http://central.maven.org/maven2/</url>
@@ -45,6 +45,9 @@
 
 	<build>
 		<plugins>
+			<!-- This plugin is in charge of fetching the maven dependencies, converting
+				them to OSGi bundles, and generating the P2 repo (update site). Bound to
+				'compile' phase -->
 			<plugin>
 				<groupId>org.reficio</groupId>
 				<artifactId>p2-maven-plugin</artifactId>
