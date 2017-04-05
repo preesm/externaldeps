@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001 XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.ietr.externaldeps</groupId>
@@ -33,15 +32,15 @@
 			<url>http://mvn.collide.info/content/repositories/releases/</url>
 		</repository>
 
-        <repository>
-            <id>XypronRelease</id>
-            <url>https://www.xypron.de/repository</url>
-        </repository>
+		<repository>
+			<id>XypronRelease</id>
+			<url>https://www.xypron.de/repository</url>
+		</repository>
 
-        <repository>
-            <id>OpenNMS</id>
-            <url>http://repo.opennms.org/maven2/</url>
-        </repository>
+		<repository>
+			<id>OpenNMS</id>
+			<url>http://repo.opennms.org/maven2/</url>
+		</repository>
 	</repositories>
 
 	<build>
@@ -88,7 +87,7 @@
 									<id>net.sourceforge.saxon:saxon:jar:9.1.0.8</id>
 									<source>true</source>
 								</artifact>
-								
+
 								<artifact>
 									<id>fm.void.jetm:jetm:jar:1.2.3</id>
 									<source>true</source>
@@ -97,7 +96,7 @@
 									<id>fm.void.jetm:jetm-optional:jar:1.2.3</id>
 									<source>true</source>
 								</artifact>
-								
+
 								<artifact>
 									<id>jfree:jcommon:jar:1.0.16</id>
 									<source>true</source>
@@ -106,17 +105,17 @@
 									<id>jfree:jfreechart:jar:1.0.13</id>
 									<source>true</source>
 								</artifact>
-								
+
 								<artifact>
 									<id>logkit:logkit:jar:1.2.2</id>
 									<source>true</source>
 								</artifact>
-								
+
 								<artifact>
 									<id>org.jacorb:jacorb-idl-compiler:jar:2.3.1</id>
 									<source>true</source>
 								</artifact>
-								
+
 								<!-- ########### -->
 								<!-- clojars.org -->
 								<!-- ########### -->
@@ -127,21 +126,16 @@
 
 								<!-- ################## -->
 								<!-- Collide Repository -->
-								<!-- ##################
-								<artifact>
-									<id>org.nfunk:jep:jar:2.4.1</id>
-									<source>true</source>
-								</artifact> -->
+								<!-- ################## -->
+								<!-- <artifact> <id>org.nfunk:jep:jar:2.4.1</id> <source>true</source>
+									</artifact> -->
 
 
 								<!-- ####### -->
 								<!-- OpenNMS -->
-								<!-- ####### 
-								<artifact>
-									<id>jep:jep:jar:2.40</id>
-									<source>true</source>
-								</artifact>-->
-								
+								<!-- ####### -->
+								<!-- <artifact> <id>jep:jep:jar:2.40</id> <source>true</source> </artifact> -->
+
 								<!-- ############# -->
 								<!-- XypronRelease -->
 								<!-- ############# -->
@@ -155,6 +149,9 @@
 				</executions>
 			</plugin>
 
+			<!-- This plugin allows to run a http server to locally host the generated
+				update site using 'mvn p2:site jetty:run'. The update site is then available
+				under http://localhost:8080/site/ -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
@@ -165,6 +162,10 @@
 					<webApp>
 						<contextPath>/site</contextPath>
 					</webApp>
+					<httpConnector>
+						<!--host>localhost</host -->
+						<port>8088</port>
+					</httpConnector>
 				</configuration>
 			</plugin>
 
