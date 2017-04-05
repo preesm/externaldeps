@@ -7,6 +7,15 @@
 	<packaging>pom</packaging>
 	<version>1.0.0</version>
 
+	<properties>
+		<tycho-version>1.0.0</tycho-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- can be changed to a local repo using an URI like file:///path/to/repo
+			Note: plain paths like '/path/to/repo' without file:// will not work -->
+		<preesm.p2.repo>http://preesm.sourceforge.net/eclipse/update-site/</preesm.p2.repo>
+		<!-- <preesm.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</preesm.p2.repo> -->
+	</properties>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>reficio</id>
@@ -14,7 +23,8 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-	<!-- Use this section to declare new maven repository -->
+	<!-- Use this section to declare new maven repository (where the third party
+		libraries are) -->
 	<repositories>
 		<repository>
 			<id>Maven Central</id>
@@ -25,7 +35,6 @@
 			<id>clojars.org</id>
 			<url>http://clojars.org/repo</url>
 		</repository>
-
 
 		<repository>
 			<id>Collide Repository</id>
@@ -127,18 +136,6 @@
 									<source>true</source>
 								</artifact>
 
-								<!-- ################## -->
-								<!-- Collide Repository -->
-								<!-- ################## -->
-								<!-- <artifact> <id>org.nfunk:jep:jar:2.4.1</id> <source>true</source>
-									</artifact> -->
-
-
-								<!-- ####### -->
-								<!-- OpenNMS -->
-								<!-- ####### -->
-								<!-- <artifact> <id>jep:jep:jar:2.40</id> <source>true</source> </artifact> -->
-
 								<!-- ############# -->
 								<!-- XypronRelease -->
 								<!-- ############# -->
@@ -146,7 +143,70 @@
 									<id>org.gnu.glpk:glpk-java:1.0.32</id>
 									<source>true</source>
 								</artifact>
+
+								<!-- ################## -->
+								<!-- Collide Repository -->
+								<!-- ################## -->
+								<!-- <artifact> <id>org.nfunk:jep:jar:2.4.1</id> <source>true</source>
+									</artifact> -->
+
+								<!-- ####### -->
+								<!-- OpenNMS -->
+								<!-- ####### -->
+								<!-- <artifact> <id>jep:jep:jar:2.40</id> <source>true</source> </artifact> -->
+
 							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- This plugin is in charge of mirroring the different update sites
+				and put everything in place in ${project.build.directory}/gensite/ -->
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-p2-extras-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>copy-current</id>
+						<phase>package</phase>
+						<goals>
+							<goal>mirror</goal>
+						</goals>
+						<configuration>
+							<source>
+								<repository>
+									<url>${project.baseUri}/target/repository</url>
+								</repository>
+							</source>
+							<append>false</append>
+							<compress>false</compress>
+							<includeOptional>true</includeOptional>
+							<destination>${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}</destination>
+						</configuration>
+					</execution>
+					<execution>
+						<id>mirror-complete</id>
+						<phase>package</phase>
+						<goals>
+							<goal>mirror</goal>
+						</goals>
+						<configuration>
+							<source>
+								<!-- Note: if the URL points to a yet-to-exist update site, command
+									the following repo to prevent the P2 mirror task to fail -->
+								<repository>
+									<url>${preesm.p2.repo}</url>
+								</repository>
+								<repository>
+									<url>${project.baseUri}/target/repository</url>
+								</repository>
+							</source>
+							<append>true</append>
+							<compress>false</compress>
+							<includeOptional>true</includeOptional>
+							<destination>${project.build.directory}/gensite/update-site/complete/</destination>
 						</configuration>
 					</execution>
 				</executions>
@@ -171,7 +231,6 @@
 					</httpConnector>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
