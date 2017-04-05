@@ -70,6 +70,8 @@
 						</goals>
 
 						<configuration>
+							<!-- Specify a path, not an URL (see https://github.com/reficio/p2-maven-plugin/issues/107) -->
+							<categoryFileURL>${basedir}/category.xml</categoryFileURL>
 							<artifacts>
 
 								<!-- ############# -->
