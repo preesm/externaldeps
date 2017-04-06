@@ -45,12 +45,10 @@
 			<url>http://repo.opennms.org/maven2/</url>
 		</repository>
 		
-		<!--
 		<repository>
-			<id>Collide Repository</id>
-			<url>http://mvn.collide.info/content/repositories/releases/</url>
-		</repository> 
-		-->
+			<id>Boundless Repository</id>
+			<url>https://repo.boundlessgeo.com/main/</url>
+		</repository>
 		
 	</repositories>
 
@@ -154,6 +152,14 @@
 								<!-- ####### -->
 								<artifact>
 									<id>jep:jep:jar:2.40</id>
+									<source>true</source>
+								</artifact>
+								
+								<!-- ######### -->
+								<!-- Boundless -->
+								<!-- ######### -->
+								<artifact>
+									<id>org.beanshell:bsh:jar:2.1b5</id>
 									<source>true</source>
 								</artifact>
 								
