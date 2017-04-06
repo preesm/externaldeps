@@ -36,11 +36,6 @@
 		</repository>
 
 		<repository>
-			<id>Collide Repository</id>
-			<url>http://mvn.collide.info/content/repositories/releases/</url>
-		</repository>
-
-		<repository>
 			<id>XypronRelease</id>
 			<url>https://www.xypron.de/repository</url>
 		</repository>
@@ -49,6 +44,14 @@
 			<id>OpenNMS</id>
 			<url>http://repo.opennms.org/maven2/</url>
 		</repository>
+		
+		<!--
+		<repository>
+			<id>Collide Repository</id>
+			<url>http://mvn.collide.info/content/repositories/releases/</url>
+		</repository> 
+		-->
+		
 	</repositories>
 
 	<build>
@@ -145,18 +148,15 @@
 									<id>org.gnu.glpk:glpk-java:1.0.32</id>
 									<source>true</source>
 								</artifact>
-
-								<!-- ################## -->
-								<!-- Collide Repository -->
-								<!-- ################## -->
-								<!-- <artifact> <id>org.nfunk:jep:jar:2.4.1</id> <source>true</source>
-									</artifact> -->
-
+								
 								<!-- ####### -->
 								<!-- OpenNMS -->
 								<!-- ####### -->
-								<!-- <artifact> <id>jep:jep:jar:2.40</id> <source>true</source> </artifact> -->
-
+								<artifact>
+									<id>jep:jep:jar:2.40</id>
+									<source>true</source>
+								</artifact>
+								
 							</artifacts>
 						</configuration>
 					</execution>
