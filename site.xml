@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-	<iu>
-		<category name="externald_deps" />
-		<query>
-			<expression type="match">providedCapabilities.exists(p | p.namespace == 'osgi.bundle')</expression>
-		</query>
-	</iu> 
 	<category-def name="externald_deps" label="External Dependencies">
 		<description>
 			Third party libraries used by Graphiti/DFTools/Preesm.
 		</description>
 	</category-def>
-
+	<iu>
+		<category name="externald_deps" />
+		<query>
+			<expression type="match">providedCapabilities.exists(p | p.namespace == 'osgi.bundle')</expression>
+		</query>
+	</iu>
 
 	<category-def name="source_components" label="Developer Resources">
 		<description>
@@ -21,7 +20,7 @@
 	<iu>
 		<category name="source_components" />
 		<query>
-			<expression type="match">id ~= /*source/</expression>
+			<expression type="match"> id ~= /*sources*/ </expression>
 		</query>
-	</iu>
+	</iu> <!-- -->
 </site>

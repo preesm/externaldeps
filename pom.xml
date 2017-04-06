@@ -5,7 +5,7 @@
 	<groupId>org.ietr.externaldeps</groupId>
 	<artifactId>org.ietr.externaldeps.parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<properties>
 		<tycho-version>1.0.0</tycho-version>
@@ -56,7 +56,7 @@
 		<plugins>
 			<!-- This plugin is in charge of fetching the maven dependencies, converting
 				them to OSGi bundles, and generating the P2 repo (update site). Bound to
-				'compile' phase -->
+				'package' phase -->
 			<plugin>
 				<groupId>org.reficio</groupId>
 				<artifactId>p2-maven-plugin</artifactId>
@@ -64,12 +64,13 @@
 				<executions>
 					<execution>
 						<id>default-cli</id>
-						<phase>compile</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>site</goal>
 						</goals>
 
 						<configuration>
+							<compressSite>false</compressSite>
 							<!-- Specify a path, not an URL (see https://github.com/reficio/p2-maven-plugin/issues/107) -->
 							<categoryFileURL>${basedir}/category.xml</categoryFileURL>
 							<artifacts>
