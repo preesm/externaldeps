@@ -131,6 +131,29 @@
 									<source>true</source>
 								</artifact>
 
+								<artifact>
+									<id>org.mockito:mockito-all:jar:1.10.19</id>
+									<source>true</source>
+								</artifact>
+
+								<artifact>
+									<id>org.apache.commons:commons-collections4:jar:4.1</id>
+									<source>true</source>
+								</artifact>
+								<artifact>
+									<id>org.apache.commons:commons-math3:jar:3.6.1</id>
+									<source>true</source>
+								</artifact>
+								<artifact>
+									<id>org.apache.commons:commons-io:jar:1.3.2</id>
+									<source>true</source>
+								</artifact>
+								<artifact>
+									<id>org.apache.commons:commons-lang3:jar:3.5</id>
+									<source>true</source>
+								</artifact>
+
+
 								<!-- ########### -->
 								<!-- clojars.org -->
 								<!-- ########### -->
