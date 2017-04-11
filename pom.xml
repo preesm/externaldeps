@@ -54,6 +54,58 @@
 
 	<build>
 		<plugins>
+
+			<!-- This plugin is in charge install local jars as maven artifacts. -->
+			 <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.2</version>
+				<executions>
+					<execution>
+						<id>install-bsh217</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>${project.basedir}/lib/bsh-2.1.7.jar</file>
+							<groupId>org.beanshell</groupId>
+							<artifactId>bsh</artifactId>
+							<version>2.1.7</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install-bsh218</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>${project.basedir}/lib/bsh-2.1.8.jar</file>
+							<groupId>org.beanshell</groupId>
+							<artifactId>bsh</artifactId>
+							<version>2.1.8</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install-jep-trial</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>${project.basedir}/lib/jep-java-3.4-trial.jar</file>
+							<groupId>com.singularsys</groupId>
+							<artifactId>jep-java-trial</artifactId>
+							<version>3.4</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
 			<!-- This plugin is in charge of fetching the maven dependencies, converting
 				them to OSGi bundles, and generating the P2 repo (update site). Bound to
 				'package' phase -->
@@ -64,7 +116,7 @@
 				<executions>
 					<execution>
 						<id>default-cli</id>
-						<phase>package</phase>
+						<phase>compile</phase>
 						<goals>
 							<goal>site</goal>
 						</goals>
@@ -75,6 +127,24 @@
 							<categoryFileURL>${basedir}/category.xml</categoryFileURL>
 							<artifacts>
 
+								
+								<!-- ########## -->
+								<!-- local jars -->
+								<!-- ########## -->
+								<artifact>
+									<id>org.beanshell:bsh:jar:2.1.8</id>
+									<source>true</source>
+								</artifact>
+								<artifact>
+									<id>org.beanshell:bsh:jar:2.1.7</id>
+									<source>true</source>
+								</artifact>
+								<artifact>
+									<id>com.singularsys:jep-java-trial:jar:3.4</id>
+									<source>true</source>
+								</artifact>
+								
+								
 								<!-- ############# -->
 								<!-- Maven Central -->
 								<!-- ############# -->
@@ -98,19 +168,19 @@
 									<source>true</source>
 								</artifact>
 
-								<artifact>
+								<!--<artifact>
 									<id>net.sourceforge.saxon:saxon:jar:9.1.0.8</id>
 									<source>true</source>
-								</artifact>
+								</artifact>-->
 
-								<artifact>
+								<!--<artifact>
 									<id>fm.void.jetm:jetm:jar:1.2.3</id>
 									<source>true</source>
 								</artifact>
 								<artifact>
 									<id>fm.void.jetm:jetm-optional:jar:1.2.3</id>
 									<source>true</source>
-								</artifact>
+								</artifact>-->
 
 								<artifact>
 									<id>jfree:jcommon:jar:1.0.16</id>
@@ -121,21 +191,22 @@
 									<source>true</source>
 								</artifact>
 
-								<artifact>
+								<!--<artifact>
 									<id>logkit:logkit:jar:1.2.2</id>
 									<source>true</source>
-								</artifact>
+								</artifact>-->
 
 								<artifact>
 									<id>org.jacorb:jacorb-idl-compiler:jar:2.3.1</id>
 									<source>true</source>
 								</artifact>
 
+
+								<!-- -->
 								<artifact>
 									<id>org.mockito:mockito-all:jar:1.10.19</id>
 									<source>true</source>
 								</artifact>
-
 								<artifact>
 									<id>org.apache.commons:commons-collections4:jar:4.1</id>
 									<source>true</source>
@@ -153,6 +224,14 @@
 									<source>true</source>
 								</artifact>
 
+								<artifact>
+									<id>org.beanshell:bsh:jar:2.0b5</id>
+									<source>true</source>
+								</artifact>
+								<artifact>
+									<id>org.beanshell:bsh:jar:2.0b4</id>
+									<source>true</source>
+								</artifact>
 
 								<!-- ########### -->
 								<!-- clojars.org -->
@@ -185,13 +264,14 @@
 									<id>org.beanshell:bsh:jar:2.1b5</id>
 									<source>true</source>
 								</artifact>
-								
+									
 							</artifacts>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
+			
+			
 			<!-- ############################################### -->
 			<!-- /!\ Editing further should not be necessary /!\ -->
 			<!-- ############################################### -->
@@ -260,7 +340,7 @@
 			</plugin>
 
 			<!-- This plugin allows to run a http server to locally host the generated
-				update site using 'mvn p2:site jetty:run'. The update site is then available
+				update site using 'mvn package jetty:run'. The update site is then available
 				under http://localhost:8080/site/ -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
