@@ -16,8 +16,8 @@
 	</properties>
 
 	<modules>
+		<!-- maven plugin required to build the final site -->
 		<module>genfeature-maven-plugin</module>
-		<module>mirror_old_sites</module>
 		<module>dependency-site</module>
 	</modules>
 </project>

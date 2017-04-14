@@ -1,32 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<artifactId>org.ietr.externaldeps.dependency.site</artifactId>
-	<packaging>pom</packaging>
 	
-	<parent>
-		<groupId>org.ietr.externaldeps</groupId>
-		<artifactId>org.ietr.externaldeps.parent</artifactId>
-		<version>1.0.1</version>
-		<relativePath>..</relativePath>
-	</parent>
-
-	<properties>
-		<tycho-version>1.0.0</tycho-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- can be changed to a local repo using an URI like file:///path/to/repo
-			Note: plain paths like '/path/to/repo' without file:// will not work -->
-		<preesm.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</preesm.p2.repo>
-	</properties>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>reficio</id>
-			<url>http://repo.reficio.org/maven/</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<!-- Use this section to declare new maven repository (where the third party
 		libraries are) -->
 	<repositories>
@@ -250,10 +225,10 @@
 						<configuration>
 							<source>
 								<!-- Note: if the URL points to a yet-to-exist update site, command
-									the following repo to prevent the P2 mirror task to fail -->
+									the following repo to prevent the P2 mirror task to fail
 								<repository>
 									<url>${preesm.p2.repo}</url>
-								</repository>
+								</repository> -->
 								<repository>
 									<url>${project.baseUri}/target/repository</url>
 								</repository>
@@ -263,6 +238,19 @@
 							<includeOptional>true</includeOptional>
 							<destination>${project.build.directory}/gensite/update-site/complete/</destination>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.ietr.externaldeps</groupId>
+				<artifactId>genfeature-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>generate-feature</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -288,6 +276,24 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
+	<artifactId>org.ietr.externaldeps.dependency.site</artifactId>
+	<packaging>pom</packaging>
+	
+	<parent>
+		<groupId>org.ietr.externaldeps</groupId>
+		<artifactId>org.ietr.externaldeps.parent</artifactId>
+		<version>1.0.1</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>reficio</id>
+			<url>http://repo.reficio.org/maven/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<profiles>
 		<profile>
