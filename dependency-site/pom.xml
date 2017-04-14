@@ -179,6 +179,26 @@
 			<!-- /!\ Editing further should not be necessary /!\ -->
 			<!-- ############################################### -->
 
+			<!-- Custom plugin to generate a feature from the previously generated P2 
+				repository, and generate a second repository for this feature. Result-->
+			<plugin>
+				<groupId>org.ietr.externaldeps</groupId>
+				<artifactId>genfeature-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>generate-feature</goal>
+						</goals>
+						<configuration>
+							<featureProvider>IETR/INSA Rennes</featureProvider>
+							<outputDirectory>${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
 			<!-- Disable maven deploy plugin: since generated artifacts will be deployed
 				in a P2 repository, there is no need to deploy them in an artifactory/nexus
 				repo. -->
@@ -207,75 +227,16 @@
 						<configuration>
 							<source>
 								<repository>
-									<url>${project.baseUri}/target/repository</url>
+									<url>${project.baseUri}/target/gensite/update-site/${project.groupId}-${project.version}</url>
 								</repository>
 							</source>
 							<append>false</append>
 							<compress>false</compress>
 							<includeOptional>true</includeOptional>
-							<destination>${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}</destination>
-						</configuration>
-					</execution>
-					<execution>
-						<id>mirror-complete</id>
-						<phase>package</phase>
-						<goals>
-							<goal>mirror</goal>
-						</goals>
-						<configuration>
-							<source>
-								<!-- Note: if the URL points to a yet-to-exist update site, command
-									the following repo to prevent the P2 mirror task to fail
-								<repository>
-									<url>${preesm.p2.repo}</url>
-								</repository> -->
-								<repository>
-									<url>${project.baseUri}/target/repository</url>
-								</repository>
-							</source>
-							<append>true</append>
-							<compress>false</compress>
-							<includeOptional>true</includeOptional>
-							<destination>${project.build.directory}/gensite/update-site/complete/</destination>
+							<destination>${project.build.directory}/gensite/update-site/${project.groupId}-latest</destination>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.ietr.externaldeps</groupId>
-				<artifactId>genfeature-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>generate-feature</goal>
-						</goals>
-						<configuration>
-							<featureProvider>IETR/INSA Rennes</featureProvider>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- This plugin allows to run a http server to locally host the generated
-				update site using 'mvn package jetty:run'. The update site is then available
-				under http://localhost:8080/site/ -->
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.5.v20120716</version>
-				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<webAppSourceDirectory>${basedir}/target/repository/</webAppSourceDirectory>
-					<webApp>
-						<contextPath>/site</contextPath>
-					</webApp>
-					<httpConnector>
-						<!--host>localhost</host -->
-						<port>8088</port>
-					</httpConnector>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -287,7 +248,7 @@
 	<parent>
 		<groupId>org.ietr.externaldeps</groupId>
 		<artifactId>org.ietr.externaldeps.parent</artifactId>
-		<version>1.0.1</version>
+		<version>1.1.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 
