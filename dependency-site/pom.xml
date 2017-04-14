@@ -34,7 +34,6 @@
 
 	<build>
 		<plugins>
-
 			<!-- This plugin is in charge install local jars as maven artifacts. -->
 			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -199,17 +198,6 @@
 				</executions>
 			</plugin>
 			
-			<!-- Disable maven deploy plugin: since generated artifacts will be deployed
-				in a P2 repository, there is no need to deploy them in an artifactory/nexus
-				repo. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.2</version>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
 
 			<!-- This plugin is in charge of mirroring the different update sites
 				and put everything in place in ${project.build.directory}/gensite/ -->
