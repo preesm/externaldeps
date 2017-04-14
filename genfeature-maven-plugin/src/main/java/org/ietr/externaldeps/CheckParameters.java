@@ -87,6 +87,9 @@ public class CheckParameters {
       throw new IOException("Input folder is not a directory [" + inputSite + "]");
     }
     final File[] list = inputSite.listFiles();
+    if (list == null) {
+      throw new RuntimeException();
+    }
     final boolean isEmpty = list.length == 0;
     if (isEmpty) {
       throw new IOException("Input folder is empty [" + inputSite + "]");
@@ -135,6 +138,9 @@ public class CheckParameters {
       throw new IOException("Input plugin folder is not a directory [" + inputPluginFolder + "]");
     }
     final File[] list = inputPluginFolder.listFiles();
+    if (list == null) {
+      throw new RuntimeException();
+    }
     final boolean isEmpty = list.length == 0;
     if (isEmpty) {
       throw new IOException("Input plugin folder is empty [" + inputPluginFolder + "]");

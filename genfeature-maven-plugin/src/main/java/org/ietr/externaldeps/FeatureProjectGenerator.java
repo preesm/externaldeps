@@ -150,6 +150,9 @@ public class FeatureProjectGenerator {
     final String pluginsPath = inputSite.getAbsolutePath() + "/plugins";
     final File pluginFolder = new File(pluginsPath);
     final File[] listFiles = pluginFolder.listFiles();
+    if (listFiles == null) {
+      throw new RuntimeException();
+    }
     for (final File file : listFiles) {
       final boolean isDirectory = file.isDirectory();
       if (isDirectory) {
