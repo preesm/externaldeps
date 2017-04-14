@@ -5,10 +5,10 @@ import java.io.IOException;
 
 public class CheckParameters {
 
-  public static final void checkParameters(final File inputSite, final String featureName, final File outputDirectory) throws IOException {
-    CheckParameters.checkInputFolder(inputSite);
-    CheckParameters.checkOutputFolder(outputDirectory);
-    CheckParameters.checkFeatureName(featureName);
+  public static final void checkParameters(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws IOException {
+    CheckParameters.checkInputFolder(generateAllInOneP2Feature.inputSite);
+    CheckParameters.checkOutputFolder(generateAllInOneP2Feature.outputDirectory);
+    CheckParameters.checkFeatureName(generateAllInOneP2Feature.featureName);
   }
 
   private static final void checkFeatureName(final String featureName) {

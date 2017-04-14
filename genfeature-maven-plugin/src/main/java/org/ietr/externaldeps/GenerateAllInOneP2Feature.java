@@ -7,6 +7,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
 import org.apache.maven.shared.invoker.DefaultInvoker;
 import org.apache.maven.shared.invoker.InvocationRequest;
@@ -26,33 +27,35 @@ public class GenerateAllInOneP2Feature extends AbstractMojo {
   public static final String BUILD_PROPERTIES_FILE_NAME   = "build.properties";
   public static final String SECOND_LEVEL_SITE_PROJECT    = "site";
   public static final String MAVEN_PROJECT_FILE_NAME      = "pom.xml";
+  public static final String TYCHO_VERSION                = "1.0.0";
+
+  @Parameter(defaultValue = "${project}", readonly = true, required = true)
+  public MavenProject project;
 
   @Parameter(defaultValue = "${project.build.directory}", property = "currentWorkingDirectory", required = true)
-  private File currentWorkingDirectory;
+  public File currentWorkingDirectory;
 
   @Parameter(defaultValue = "${project.build.directory}/repository/", property = "inputSite", required = true)
-  private File inputSite;
+  public File inputSite;
 
   @Parameter(defaultValue = "${project.build.directory}/repository-featured/", property = "outputDirectory", required = true)
-  private File outputDirectory;
+  public File outputDirectory;
 
   @Parameter(defaultValue = "All in One Dependencies", property = "featureName", required = true)
-  private String featureName;
+  public String featureName;
 
   @Parameter(defaultValue = "aio.deps", property = "featureId", required = true)
-  private String featureId;
+  public String featureId;
 
   @Parameter(defaultValue = "Provider", property = "featureProvider", required = true)
-  private String featureProvider;
-
-
+  public String featureProvider;
 
   public void execute() throws MojoFailureException {
     getLog().info("Starting all-in-one feature generation for all jars in ");
     getLog().info(this.inputSite.getAbsolutePath());
 
     try {
-      new SecondLevelGenerator().generate(this.currentWorkingDirectory, this.inputSite, this.featureName, this.featureProvider, this.featureId);
+      new SecondLevelGenerator().generate(this);
 
       getLog().info("Calling 2nd level");
       call2ndLevel();

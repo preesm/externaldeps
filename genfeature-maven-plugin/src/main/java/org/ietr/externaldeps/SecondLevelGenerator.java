@@ -9,28 +9,28 @@ import org.apache.maven.plugin.MojoFailureException;
 
 public class SecondLevelGenerator {
 
-  public void generate(final File currentWorkingDirectory, final File inputSite, final String featureName, String featureProvider, String featureId) throws MojoFailureException, IOException {
+  public void generate(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws MojoFailureException, IOException {
 
     // make directories
-    new File(currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME).mkdirs();
-    new File(currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
+    new File(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME).mkdirs();
+    new File(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
         + GenerateAllInOneP2Feature.SECOND_LEVEL_FEATURE_PROJECT).mkdirs();
-    new File(currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
+    new File(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
         + GenerateAllInOneP2Feature.SECOND_LEVEL_SITE_PROJECT).mkdirs();
 
-    generateFeature(inputSite, featureName, currentWorkingDirectory, featureProvider, featureId);
+    generateFeature(generateAllInOneP2Feature);
 
   }
 
-  private final void generateFeature(final File inputSite, final String featureName, final File currentWorkingDirectory, String featureProvider, String featureId) throws IOException {
-    CheckParameters.checkParameters(inputSite, featureName, currentWorkingDirectory);
+  private final void generateFeature(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws IOException {
+    CheckParameters.checkParameters(generateAllInOneP2Feature);
 
-    generateParentPomFile(currentWorkingDirectory, inputSite);
-    new FeatureProjectGenerator().generateProject(inputSite, featureName, currentWorkingDirectory, featureProvider, featureId);
-    new SiteProjectGenerator().generateProject(inputSite, featureName, currentWorkingDirectory, featureProvider, featureId);
+    generateParentPomFile(generateAllInOneP2Feature);
+    new FeatureProjectGenerator().generateProject(generateAllInOneP2Feature);
+    new SiteProjectGenerator().generateProject(generateAllInOneP2Feature);
   }
 
-  private void generateParentPomFile(final File currentWorkingDirectory, final File inputSite) throws FileNotFoundException, UnsupportedEncodingException {
+  private void generateParentPomFile(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws FileNotFoundException, UnsupportedEncodingException {
     PrintWriter writer;
 
     final StringBuffer buffer = new StringBuffer();
@@ -42,14 +42,14 @@ public class SecondLevelGenerator {
     buffer.append("  <artifactId>org.ietr.externaldeps.parent</artifactId>\n");
     buffer.append("  <groupId>org.ietr.externaldeps</groupId>\n");
     buffer.append("  <packaging>pom</packaging>\n");
-    buffer.append("  <version>1.0.0</version>\n");
+    buffer.append("  <version>" + generateAllInOneP2Feature.project.getVersion() + "</version>\n");
     buffer.append("  \n");
     buffer.append("  <repositories>\n");
     buffer.append("    <repository>\n");
     buffer.append("      <id>original-site</id>\n");
     buffer.append("      <layout>p2</layout>\n");
     buffer.append("      <url>");
-    buffer.append(inputSite.toURI().toString());
+    buffer.append(generateAllInOneP2Feature.inputSite.toURI().toString());
     buffer.append("</url>\n");
     buffer.append("    </repository>\n");
     buffer.append("  </repositories>\n");
@@ -61,8 +61,8 @@ public class SecondLevelGenerator {
     buffer.append("</project>\n");
     buffer.append("");
 
-    writer = new PrintWriter(currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
-        + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME, "UTF-8");
+    writer = new PrintWriter(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME
+        + "/" + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME, "UTF-8");
     writer.println(buffer.toString());
     writer.close();
   }
