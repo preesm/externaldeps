@@ -101,7 +101,7 @@ public class GenerateAllInOneP2Feature extends AbstractMojo {
       e.printStackTrace();
       throw new MojoFailureException(e, "Could not execute second level", e.getMessage());
     }
-    getLog().info("Feature generated.");
+    getLog().info("Featured repository generated.");
   }
 
   /**
