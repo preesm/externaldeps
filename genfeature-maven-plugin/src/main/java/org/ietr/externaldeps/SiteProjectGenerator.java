@@ -20,7 +20,8 @@ public class SiteProjectGenerator {
 
     buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     buffer.append("<site>\n");
-    buffer.append("   <feature url=\"features/" + generateAllInOneP2Feature.featureId + "\" id=\"" + generateAllInOneP2Feature.featureId + "\" >\n");
+    buffer.append("   <feature url=\"features/" + generateAllInOneP2Feature.project.getGroupId() + "." + generateAllInOneP2Feature.featureId + "\" id=\""
+        + generateAllInOneP2Feature.project.getGroupId() + "." + generateAllInOneP2Feature.featureId + "\" >\n");
     buffer.append("      <category name=\"" + generateAllInOneP2Feature.featureId + "_cat\"/>\n");
     buffer.append("   </feature>\n");
     buffer.append("   \n");
@@ -48,8 +49,8 @@ public class SiteProjectGenerator {
     buffer.append("  <packaging>eclipse-repository</packaging>\n");
     buffer.append("  \n");
     buffer.append("  <parent>\n");
-    buffer.append("  <artifactId>org.ietr.externaldeps.parent</artifactId>\n");
-    buffer.append("  <groupId>org.ietr.externaldeps</groupId>\n");
+    buffer.append("  <artifactId>" + generateAllInOneP2Feature.project.getGroupId() + ".parent</artifactId>\n");
+    buffer.append("  <groupId>" + generateAllInOneP2Feature.project.getGroupId() + "</groupId>\n");
     buffer.append("    <version>" + generateAllInOneP2Feature.project.getVersion() + "</version>\n");
     buffer.append("    <relativePath>..</relativePath>\n");
     buffer.append("  </parent>\n");

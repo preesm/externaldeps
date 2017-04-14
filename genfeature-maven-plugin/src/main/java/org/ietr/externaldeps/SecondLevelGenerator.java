@@ -39,8 +39,12 @@ public class SecondLevelGenerator {
     buffer.append("  xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n");
     buffer.append("  <modelVersion>4.0.0</modelVersion>\n");
     buffer.append("\n");
-    buffer.append("  <artifactId>org.ietr.externaldeps.parent</artifactId>\n");
-    buffer.append("  <groupId>org.ietr.externaldeps</groupId>\n");
+    buffer.append("  <artifactId>"
+        + generateAllInOneP2Feature.project.getGroupId()
+        + ".parent</artifactId>\n");
+    buffer.append("  <groupId>"
+        + generateAllInOneP2Feature.project.getGroupId()
+        + "</groupId>\n");
     buffer.append("  <packaging>pom</packaging>\n");
     buffer.append("  <version>" + generateAllInOneP2Feature.project.getVersion() + "</version>\n");
     buffer.append("  \n");

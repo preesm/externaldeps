@@ -28,13 +28,14 @@ public class FeatureProjectGenerator {
     buffer.append("  <modelVersion>4.0.0</modelVersion>\n");
     buffer.append("\n");
     buffer.append("  <artifactId>");
+    buffer.append(generateAllInOneP2Feature.project.getGroupId() + ".");
     buffer.append(generateAllInOneP2Feature.featureId);
     buffer.append("</artifactId>\n");
     buffer.append("  <packaging>eclipse-feature</packaging>\n");
     buffer.append("  \n");
     buffer.append("  <parent>\n");
-    buffer.append("    <artifactId>org.ietr.externaldeps.parent</artifactId>\n");
-    buffer.append("    <groupId>org.ietr.externaldeps</groupId>\n");
+    buffer.append("    <artifactId>" + generateAllInOneP2Feature.project.getGroupId() + ".parent</artifactId>\n");
+    buffer.append("    <groupId>" + generateAllInOneP2Feature.project.getGroupId() + "</groupId>\n");
     buffer.append("    <version>" + generateAllInOneP2Feature.project.getVersion() + "</version>\n");
     buffer.append("    <relativePath>..</relativePath>\n");
     buffer.append("  </parent>\n");
@@ -65,7 +66,7 @@ public class FeatureProjectGenerator {
     final StringBuffer buffer = new StringBuffer();
     buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     buffer.append("\n");
-    buffer.append("<feature id=\"").append(generateAllInOneP2Feature.featureId)
+    buffer.append("<feature id=\"" + generateAllInOneP2Feature.project.getGroupId() + ".").append(generateAllInOneP2Feature.featureId)
         .append("\" version=\"" + generateAllInOneP2Feature.project.getVersion() + "\" provider-name=\"" + generateAllInOneP2Feature.featureProvider + "\">\n");
     buffer.append("\n");
     for (final PluginIU plugin : pluginList) {
