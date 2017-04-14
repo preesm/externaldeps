@@ -3,14 +3,32 @@ package org.ietr.externaldeps;
 import java.io.File;
 import java.io.IOException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CheckParameters.
+ */
 public class CheckParameters {
 
+  /**
+   * Check parameters.
+   *
+   * @param generateAllInOneP2Feature
+   *          the generate all in one P 2 feature
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
   public static final void checkParameters(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws IOException {
     CheckParameters.checkInputFolder(generateAllInOneP2Feature.inputSite);
     CheckParameters.checkOutputFolder(generateAllInOneP2Feature.outputDirectory);
     CheckParameters.checkFeatureName(generateAllInOneP2Feature.featureName);
   }
 
+  /**
+   * Check feature name.
+   *
+   * @param featureName
+   *          the feature name
+   */
   private static final void checkFeatureName(final String featureName) {
     if (featureName == null) {
       throw new NullPointerException();
@@ -20,6 +38,14 @@ public class CheckParameters {
     }
   }
 
+  /**
+   * Check output folder.
+   *
+   * @param outputDirectory
+   *          the output directory
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
   private static void checkOutputFolder(final File outputDirectory) throws IOException {
     final boolean exists = outputDirectory.exists();
     if (exists) {
@@ -39,6 +65,14 @@ public class CheckParameters {
     }
   }
 
+  /**
+   * Check input folder.
+   *
+   * @param inputSite
+   *          the input site
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
   private static void checkInputFolder(final File inputSite) throws IOException {
     final boolean exists = inputSite.exists();
     if (!exists) {
@@ -78,6 +112,14 @@ public class CheckParameters {
     }
   }
 
+  /**
+   * Check plugin folder.
+   *
+   * @param inputPluginFolder
+   *          the input plugin folder
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
   private static final void checkPluginFolder(final File inputPluginFolder) throws IOException {
 
     final boolean exists = inputPluginFolder.exists();

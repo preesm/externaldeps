@@ -17,39 +17,72 @@ import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.CommandLineException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GenerateAllInOneP2Feature.
+ */
+/**
+ * @author anmorvan
+ *
+ */
 @Mojo(name = "generate-feature", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class GenerateAllInOneP2Feature extends AbstractMojo {
 
-  public static final String SECOND_LEVEL_FOLDER_NAME     = "secondLevel";
-  public static final String SECOND_LEVEL_FEATURE_PROJECT = "feature";
-  public static final String FEATURE_FILE_NAME            = "feature.xml";
-  public static final String CATEGORY_FILE_NAME           = "category.xml";
-  public static final String BUILD_PROPERTIES_FILE_NAME   = "build.properties";
-  public static final String SECOND_LEVEL_SITE_PROJECT    = "site";
-  public static final String MAVEN_PROJECT_FILE_NAME      = "pom.xml";
-  public static final String TYCHO_VERSION                = "1.0.0";
+  /** The Constant SECOND_LEVEL_FOLDER_NAME. */
+  public static final String SECOND_LEVEL_FOLDER_NAME = "secondLevel";
 
+  /** The Constant SECOND_LEVEL_FEATURE_PROJECT. */
+  public static final String SECOND_LEVEL_FEATURE_PROJECT = "feature";
+
+  /** The Constant FEATURE_FILE_NAME. */
+  public static final String FEATURE_FILE_NAME = "feature.xml";
+
+  /** The Constant CATEGORY_FILE_NAME. */
+  public static final String CATEGORY_FILE_NAME = "category.xml";
+
+  /** The Constant BUILD_PROPERTIES_FILE_NAME. */
+  public static final String BUILD_PROPERTIES_FILE_NAME = "build.properties";
+
+  /** The Constant SECOND_LEVEL_SITE_PROJECT. */
+  public static final String SECOND_LEVEL_SITE_PROJECT = "site";
+
+  /** The Constant MAVEN_PROJECT_FILE_NAME. */
+  public static final String MAVEN_PROJECT_FILE_NAME = "pom.xml";
+
+  /** The Constant TYCHO_VERSION. */
+  public static final String TYCHO_VERSION = "1.0.0";
+
+  /** The project. */
   @Parameter(defaultValue = "${project}", readonly = true, required = true)
   public MavenProject project;
 
+  /** The current working directory. */
   @Parameter(defaultValue = "${project.build.directory}", property = "currentWorkingDirectory", required = true)
   public File currentWorkingDirectory;
 
+  /** The input site. */
   @Parameter(defaultValue = "${project.build.directory}/repository/", property = "inputSite", required = true)
   public File inputSite;
 
+  /** The output directory. */
   @Parameter(defaultValue = "${project.build.directory}/repository-featured/", property = "outputDirectory", required = true)
   public File outputDirectory;
 
+  /** The feature name. */
   @Parameter(defaultValue = "All in One Dependencies", property = "featureName", required = true)
   public String featureName;
 
+  /** The feature id. */
   @Parameter(defaultValue = "aio.deps", property = "featureId", required = true)
   public String featureId;
 
+  /** The feature provider. */
   @Parameter(defaultValue = "Provider", property = "featureProvider", required = true)
   public String featureProvider;
 
+  /**
+   *
+   */
   public void execute() throws MojoFailureException {
     getLog().info("Starting all-in-one feature generation for all jars in ");
     getLog().info(this.inputSite.getAbsolutePath());
@@ -71,6 +104,12 @@ public class GenerateAllInOneP2Feature extends AbstractMojo {
     getLog().info("Feature generated.");
   }
 
+  /**
+   * Call 2 nd level.
+   *
+   * @throws MavenInvocationException
+   *           the maven invocation exception
+   */
   private void call2ndLevel() throws MavenInvocationException {
     final InvocationRequest request = new DefaultInvocationRequest();
     request.setDebug(false);

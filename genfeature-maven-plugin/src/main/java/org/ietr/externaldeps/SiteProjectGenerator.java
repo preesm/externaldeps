@@ -4,18 +4,39 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SiteProjectGenerator.
+ */
 public class SiteProjectGenerator {
 
+  /**
+   * Generate project.
+   *
+   * @param generateAllInOneP2Feature
+   *          the generate all in one P 2 feature
+   * @throws FileNotFoundException
+   *           the file not found exception
+   * @throws UnsupportedEncodingException
+   *           the unsupported encoding exception
+   */
   public void generateProject(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws FileNotFoundException, UnsupportedEncodingException {
 
     generateSitePomFile(generateAllInOneP2Feature);
     generateSiteCategoryFile(generateAllInOneP2Feature);
   }
 
+  /**
+   * Generate site category file.
+   *
+   * @param generateAllInOneP2Feature
+   *          the generate all in one P 2 feature
+   * @throws FileNotFoundException
+   *           the file not found exception
+   * @throws UnsupportedEncodingException
+   *           the unsupported encoding exception
+   */
   private void generateSiteCategoryFile(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws FileNotFoundException, UnsupportedEncodingException {
-
-    PrintWriter writer;
-
     final StringBuffer buffer = new StringBuffer();
 
     buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -30,15 +51,25 @@ public class SiteProjectGenerator {
     buffer.append("</site>\n");
     buffer.append("");
 
-    writer = new PrintWriter(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME
-        + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_SITE_PROJECT + "/" + GenerateAllInOneP2Feature.CATEGORY_FILE_NAME, "UTF-8");
+    PrintWriter writer = new PrintWriter(
+        generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
+            + GenerateAllInOneP2Feature.SECOND_LEVEL_SITE_PROJECT + "/" + GenerateAllInOneP2Feature.CATEGORY_FILE_NAME,
+        "UTF-8");
     writer.println(buffer);
     writer.close();
   }
 
+  /**
+   * Generate site pom file.
+   *
+   * @param generateAllInOneP2Feature
+   *          the generate all in one P 2 feature
+   * @throws FileNotFoundException
+   *           the file not found exception
+   * @throws UnsupportedEncodingException
+   *           the unsupported encoding exception
+   */
   private void generateSitePomFile(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws FileNotFoundException, UnsupportedEncodingException {
-    PrintWriter writer;
-
     final StringBuffer buffer = new StringBuffer();
 
     buffer.append("<project xmlns=\"http://maven.apache.org/POM/4.0.0\" ");
@@ -84,8 +115,10 @@ public class SiteProjectGenerator {
     buffer.append("\n");
     buffer.append("");
 
-    writer = new PrintWriter(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME
-        + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_SITE_PROJECT + "/" + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME, "UTF-8");
+    PrintWriter writer = new PrintWriter(
+        generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
+            + GenerateAllInOneP2Feature.SECOND_LEVEL_SITE_PROJECT + "/" + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME,
+        "UTF-8");
     writer.println(buffer);
     writer.close();
   }

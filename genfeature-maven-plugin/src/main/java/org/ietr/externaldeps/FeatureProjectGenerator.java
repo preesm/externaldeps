@@ -9,8 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 import org.codehaus.plexus.util.FileUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FeatureProjectGenerator.
+ */
 public class FeatureProjectGenerator {
 
+  /**
+   * Generate project.
+   *
+   * @param generateAllInOneP2Feature
+   *          the generate all in one P 2 feature
+   * @throws FileNotFoundException
+   *           the file not found exception
+   * @throws UnsupportedEncodingException
+   *           the unsupported encoding exception
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
   public void generateProject(final GenerateAllInOneP2Feature generateAllInOneP2Feature)
       throws FileNotFoundException, UnsupportedEncodingException, IOException {
     generateFeaturePomFile(generateAllInOneP2Feature);
@@ -18,9 +34,17 @@ public class FeatureProjectGenerator {
     generateBuildProperties(generateAllInOneP2Feature);
   }
 
+  /**
+   * Generate feature pom file.
+   *
+   * @param generateAllInOneP2Feature
+   *          the generate all in one P 2 feature
+   * @throws FileNotFoundException
+   *           the file not found exception
+   * @throws UnsupportedEncodingException
+   *           the unsupported encoding exception
+   */
   private void generateFeaturePomFile(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws FileNotFoundException, UnsupportedEncodingException {
-    PrintWriter writer;
-
     final StringBuffer buffer = new StringBuffer();
 
     buffer.append("<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n");
@@ -53,12 +77,22 @@ public class FeatureProjectGenerator {
     buffer.append("</project>\n");
     buffer.append("");
 
-    writer = new PrintWriter(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME
-        + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FEATURE_PROJECT + "/" + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME, "UTF-8");
+    PrintWriter writer = new PrintWriter(
+        generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
+            + GenerateAllInOneP2Feature.SECOND_LEVEL_FEATURE_PROJECT + "/" + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME,
+        "UTF-8");
     writer.println(buffer);
     writer.close();
   }
 
+  /**
+   * Generate feature file.
+   *
+   * @param generateAllInOneP2Feature
+   *          the generate all in one P 2 feature
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
   private void generateFeatureFile(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws IOException {
 
     final List<PluginIU> pluginList = generatePluginList(generateAllInOneP2Feature.inputSite);
@@ -84,6 +118,16 @@ public class FeatureProjectGenerator {
     writer.close();
   }
 
+  /**
+   * Generate build properties.
+   *
+   * @param generateAllInOneP2Feature
+   *          the generate all in one P 2 feature
+   * @throws FileNotFoundException
+   *           the file not found exception
+   * @throws UnsupportedEncodingException
+   *           the unsupported encoding exception
+   */
   private void generateBuildProperties(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws FileNotFoundException, UnsupportedEncodingException {
     PrintWriter writer;
     final String buildPropertiesContent = "bin.includes = " + GenerateAllInOneP2Feature.FEATURE_FILE_NAME;
@@ -94,6 +138,13 @@ public class FeatureProjectGenerator {
     writer.close();
   }
 
+  /**
+   * Generate plugin list.
+   *
+   * @param inputSite
+   *          the input site
+   * @return the list
+   */
   private final List<PluginIU> generatePluginList(final File inputSite) {
     final List<PluginIU> pluginList = new ArrayList<PluginIU>();
     final String pluginsPath = inputSite.getAbsolutePath() + "/plugins";
