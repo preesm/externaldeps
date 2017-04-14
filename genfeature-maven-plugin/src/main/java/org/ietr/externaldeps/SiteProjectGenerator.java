@@ -7,58 +7,101 @@ import java.io.UnsupportedEncodingException;
 
 public class SiteProjectGenerator {
 
-  public void generateProject(final File inputSite, final String featureName, final File currentWorkingDirectory)
+  public void generateProject(final File inputSite, final String featureName, final File currentWorkingDirectory, String featureProvider, String featureId)
       throws FileNotFoundException, UnsupportedEncodingException {
 
-    generateSitePomFile(currentWorkingDirectory, featureName, inputSite);
-    generateSiteCategoryFile(currentWorkingDirectory, featureName, inputSite);
+    generateSitePomFile(currentWorkingDirectory, featureName, inputSite, featureProvider);
+    generateSiteCategoryFile(currentWorkingDirectory, featureName, inputSite, featureId);
   }
 
-  private void generateSiteCategoryFile(final File currentWorkingDirectory, final String featureName, final File inputSite)
+  private void generateSiteCategoryFile(final File currentWorkingDirectory, final String featureName, final File inputSite, String featureId)
       throws FileNotFoundException, UnsupportedEncodingException {
 
     PrintWriter writer;
 
-    String toto;
+    final StringBuffer buffer = new StringBuffer();
 
-    toto = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<site>\n"
-        + "   <feature url=\"features/org.ietr.externaldeps.dependency.site\" id=\"org.ietr.externaldeps.dependency.site\" >\n"
-        + "      <category name=\"PREESM\"/>\n" + "   </feature>\n" + "   \n" + "   <category-def name=\"source_components\" label=\"Developer Resources\">\n"
-        + "      <description>\n" + "         Developper resources (includes source code).\n" + "      </description>\n" + "   </category-def>\n" + "   \n"
-        + "   <category-def name=\"PREESM\" label=\"PREESM\">\n" + "      <description>\n"
-        + "         PREESM (the Parallel and Real-time Embedded Executives Scheduling Method) is an open source rapid prototyping and code generation tool. It is primarily employed to simulate signal processing applications and generate code for multi-core Digital Signal Processors. PREESM is developed at the Institute of Electronics and Telecommunications-Rennes (IETR) in collaboration with Texas Instruments France in Nice.\n"
-        + "      </description>\n" + "   </category-def>\n"
-        + "   <repository-reference location=\"http://download.eclipse.org/releases/neon/\" enabled=\"true\" />\n"
-        + "   <repository-reference location=\"http://preesm.sourceforge.net/eclipse/update-site/\" enabled=\"true\" />\n" + "</site>\n" + "";
+    buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+    buffer.append("<site>\n");
+    buffer.append("   <feature url=\"features/"
+        + featureId
+        + "\" id=\""
+        + featureId
+        + "\" >\n");
+    buffer.append("      <category name=\""
+        + featureId
+        + "_cat\"/>\n");
+    buffer.append("   </feature>\n");
+    buffer.append("   \n");
+    buffer.append("   <category-def name=\""
+        + featureId
+        + "_cat\" label=\""
+        + featureName
+        + "\">\n");
+    buffer.append("   </category-def>\n");
+    buffer.append("</site>\n");
+    buffer.append("");
 
     writer = new PrintWriter(currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
         + GenerateAllInOneP2Feature.SECOND_LEVEL_SITE_PROJECT + "/" + GenerateAllInOneP2Feature.CATEGORY_FILE_NAME, "UTF-8");
-    writer.println(toto);
+    writer.println(buffer);
     writer.close();
   }
 
-  private void generateSitePomFile(final File currentWorkingDirectory, final String featureName, final File inputSite)
+  private void generateSitePomFile(final File currentWorkingDirectory, final String featureName, final File inputSite, String featureProvider)
       throws FileNotFoundException, UnsupportedEncodingException {
     PrintWriter writer;
 
-    String toto;
+    final StringBuffer buffer = new StringBuffer();
 
-    toto = "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n"
-        + "  <modelVersion>4.0.0</modelVersion>\n" + "  <artifactId>org.ietr.externaldeps.dependency.site.site</artifactId>\n"
-        + "  <packaging>eclipse-repository</packaging>\n" + "  \n" + "  <parent>\n" + "  <artifactId>org.ietr.externaldeps.parent</artifactId>\n"
-        + "  <groupId>org.ietr.externaldeps</groupId>\n" + "    <version>1.0.0</version>\n" + "    <relativePath>..</relativePath>\n" + "  </parent>\n" + "  \n"
-        + "  <build>\n" + "    <plugins>\n" + "      <plugin>\n" + "        <groupId>org.eclipse.tycho</groupId>\n"
-        + "        <artifactId>tycho-maven-plugin</artifactId>\n" + "        <version>1.0.0</version>\n" + "        <extensions>true</extensions>\n"
-        + "      </plugin>\n" + "      <!--\n" + "        This plugins builds the update site for the current release\n"
-        + "        and puts all files in ${project.build.directory}/repository\n" + "        -->\n" + "      <plugin>\n"
-        + "        <groupId>org.eclipse.tycho</groupId>\n" + "        <artifactId>tycho-p2-repository-plugin</artifactId>\n"
-        + "        <version>1.0.0</version>\n" + "        <configuration>\n" + "          <includeAllDependencies>true</includeAllDependencies>\n"
-        + "          <compress>false</compress>\n" + "          <repositoryName>IETR/INSA - Rennes Update Site</repositoryName>\n"
-        + "        </configuration>\n" + "      </plugin>\n" + "    </plugins>\n" + "  </build>\n" + "</project>\n" + "\n" + "\n" + "";
+    buffer.append("<project xmlns=\"http://maven.apache.org/POM/4.0.0\" ");
+    buffer.append("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" ");
+    buffer.append("xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n");
+    buffer.append("  <modelVersion>4.0.0</modelVersion>\n");
+    buffer.append("  <artifactId>org.ietr.externaldeps.dependency.site</artifactId>\n");
+    buffer.append("  <packaging>eclipse-repository</packaging>\n");
+    buffer.append("  \n");
+    buffer.append("  <parent>\n");
+    buffer.append("  <artifactId>org.ietr.externaldeps.parent</artifactId>\n");
+    buffer.append("  <groupId>org.ietr.externaldeps</groupId>\n");
+    buffer.append("    <version>1.0.0</version>\n");
+    buffer.append("    <relativePath>..</relativePath>\n");
+    buffer.append("  </parent>\n");
+    buffer.append("  \n");
+    buffer.append("  <build>\n");
+    buffer.append("    <plugins>\n");
+    buffer.append("      <plugin>\n");
+    buffer.append("        <groupId>org.eclipse.tycho</groupId>\n");
+    buffer.append("        <artifactId>tycho-maven-plugin</artifactId>\n");
+    buffer.append("        <version>1.0.0</version>\n");
+    buffer.append("        <extensions>true</extensions>\n");
+    buffer.append("      </plugin>\n");
+    buffer.append("      <!--\n");
+    buffer.append("        This plugins builds the update site for the current release\n");
+    buffer.append("        and puts all files in ${project.build.directory}/repository\n");
+    buffer.append("        -->\n");
+    buffer.append("      <plugin>\n");
+    buffer.append("        <groupId>org.eclipse.tycho</groupId>\n");
+    buffer.append("        <artifactId>tycho-p2-repository-plugin</artifactId>\n");
+    buffer.append("        <version>1.0.0</version>\n");
+    buffer.append("        <configuration>\n");
+    buffer.append("          <includeAllDependencies>true</includeAllDependencies>\n");
+    buffer.append("          <compress>false</compress>\n");
+    buffer.append("          <repositoryName>"
+        + featureProvider
+        + " Update Site</repositoryName>\n");
+    buffer.append("        </configuration>\n");
+    buffer.append("      </plugin>\n");
+    buffer.append("    </plugins>\n");
+    buffer.append("  </build>\n");
+    buffer.append("</project>\n");
+    buffer.append("\n");
+    buffer.append("\n");
+    buffer.append("");
 
     writer = new PrintWriter(currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
         + GenerateAllInOneP2Feature.SECOND_LEVEL_SITE_PROJECT + "/" + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME, "UTF-8");
-    writer.println(toto);
+    writer.println(buffer);
     writer.close();
   }
 

@@ -36,24 +36,31 @@ public class GenerateAllInOneP2Feature extends AbstractMojo {
   @Parameter(defaultValue = "${project.build.directory}/repository-featured/", property = "outputDirectory", required = true)
   private File outputDirectory;
 
-  @Parameter(defaultValue = "${project.artifactId}", property = "featureName", required = true)
+  @Parameter(defaultValue = "All in One Dependencies", property = "featureName", required = true)
   private String featureName;
+
+  @Parameter(defaultValue = "aio.deps", property = "featureId", required = true)
+  private String featureId;
+
+  @Parameter(defaultValue = "Provider", property = "featureProvider", required = true)
+  private String featureProvider;
+
+
 
   public void execute() throws MojoFailureException {
     getLog().info("Starting all-in-one feature generation for all jars in ");
     getLog().info(this.inputSite.getAbsolutePath());
 
     try {
-      new SecondLevelGenerator().generate(this.currentWorkingDirectory, this.inputSite, this.featureName);
+      new SecondLevelGenerator().generate(this.currentWorkingDirectory, this.inputSite, this.featureName, this.featureProvider, this.featureId);
 
       getLog().info("Calling 2nd level");
       call2ndLevel();
       getLog().info("2nd level done");
 
       getLog().info("Copy generated repository");
-      FileUtils.copyDirectoryStructure(
-          new File(currentWorkingDirectory.getAbsolutePath() + "/" + SECOND_LEVEL_FOLDER_NAME + "/" + SECOND_LEVEL_SITE_PROJECT + "/target/repository"),
-          outputDirectory);
+      FileUtils.copyDirectoryStructure(new File(this.currentWorkingDirectory.getAbsolutePath() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
+          + GenerateAllInOneP2Feature.SECOND_LEVEL_SITE_PROJECT + "/target/repository"), this.outputDirectory);
     } catch (final Exception e) {
       e.printStackTrace();
       throw new MojoFailureException(e, "Could not execute second level", e.getMessage());

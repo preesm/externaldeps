@@ -251,6 +251,9 @@
 						<goals>
 							<goal>generate-feature</goal>
 						</goals>
+						<configuration>
+							<featureProvider>IETR/INSA Rennes</featureProvider>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

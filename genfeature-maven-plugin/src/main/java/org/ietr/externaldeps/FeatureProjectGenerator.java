@@ -11,41 +11,64 @@ import org.codehaus.plexus.util.FileUtils;
 
 public class FeatureProjectGenerator {
 
-  public void generateProject(final File inputSite, final String featureName, final File currentWorkingDirectory)
+  public void generateProject(final File inputSite, final String featureName, final File currentWorkingDirectory, String featureProvider, String featureId)
       throws FileNotFoundException, UnsupportedEncodingException, IOException {
-    generateFeaturePomFile(currentWorkingDirectory, featureName, inputSite);
-    generateFeatureFile(currentWorkingDirectory, featureName, inputSite);
+    generateFeaturePomFile(currentWorkingDirectory, featureName, inputSite, featureId);
+    generateFeatureFile(currentWorkingDirectory, featureName, inputSite, featureProvider, featureId);
     generateBuildProperties(currentWorkingDirectory);
   }
 
-  private void generateFeaturePomFile(final File currentWorkingDirectory, final String featureName, final File inputSite)
+  private void generateFeaturePomFile(final File currentWorkingDirectory, final String featureName, final File inputSite, String featureId)
       throws FileNotFoundException, UnsupportedEncodingException {
     PrintWriter writer;
 
-    String toto;
+    final StringBuffer buffer = new StringBuffer();
 
-    toto = "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
-        + "  xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n" + "  <modelVersion>4.0.0</modelVersion>\n"
-        + "\n" + "  <artifactId>" + featureName + "</artifactId>\n" + "  <packaging>eclipse-feature</packaging>\n" + "  \n" + "  <parent>\n"
-        + "  <artifactId>org.ietr.externaldeps.parent</artifactId>\n" + "  <groupId>org.ietr.externaldeps</groupId>\n" + "    <version>1.0.0</version>\n"
-        + "    <relativePath>..</relativePath>\n" + "  </parent>\n" + "  \n" + "  <build>\n" + "    <plugins>\n" + "      <plugin>\n"
-        + "        <groupId>org.eclipse.tycho</groupId>\n" + "        <artifactId>tycho-maven-plugin</artifactId>\n" + "        <version>1.0.0</version>\n"
-        + "        <extensions>true</extensions>\n" + "      </plugin>\n" + "    </plugins>\n" + "  </build>\n" + "</project>\n" + "";
+    buffer.append("<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n");
+    buffer.append("  xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n");
+    buffer.append("  <modelVersion>4.0.0</modelVersion>\n");
+    buffer.append("\n");
+    buffer.append("  <artifactId>");
+    buffer.append(featureId);
+    buffer.append("</artifactId>\n");
+    buffer.append("  <packaging>eclipse-feature</packaging>\n");
+    buffer.append("  \n");
+    buffer.append("  <parent>\n");
+    buffer.append("    <artifactId>org.ietr.externaldeps.parent</artifactId>\n");
+    buffer.append("    <groupId>org.ietr.externaldeps</groupId>\n");
+    buffer.append("    <version>1.0.0</version>\n");
+    buffer.append("    <relativePath>..</relativePath>\n");
+    buffer.append("  </parent>\n");
+    buffer.append("  \n");
+    buffer.append("  <build>\n");
+    buffer.append("    <plugins>\n");
+    buffer.append("      <plugin>\n");
+    buffer.append("        <groupId>org.eclipse.tycho</groupId>\n");
+    buffer.append("        <artifactId>tycho-maven-plugin</artifactId>\n");
+    buffer.append("        <version>1.0.0</version>\n");
+    buffer.append("        <extensions>true</extensions>\n");
+    buffer.append("      </plugin>\n");
+    buffer.append("    </plugins>\n");
+    buffer.append("  </build>\n");
+    buffer.append("</project>\n");
+    buffer.append("");
 
     writer = new PrintWriter(currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
         + GenerateAllInOneP2Feature.SECOND_LEVEL_FEATURE_PROJECT + "/" + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME, "UTF-8");
-    writer.println(toto);
+    writer.println(buffer);
     writer.close();
   }
 
-  private void generateFeatureFile(final File currentWorkingDirectory, final String featureName, final File inputSite) throws IOException {
+  private void generateFeatureFile(final File currentWorkingDirectory, final String featureName, final File inputSite, String featureProvider, String featureId) throws IOException {
 
     final List<PluginIU> pluginList = generatePluginList(inputSite);
 
     final StringBuffer buffer = new StringBuffer();
     buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     buffer.append("\n");
-    buffer.append("<feature id=\"").append(featureName).append("\" version=\"1.0.0\" provider-name=\"IETR/INSA Rennes\">\n");
+    buffer.append("<feature id=\"").append(featureId).append("\" version=\"1.0.0\" provider-name=\""
+        + featureProvider
+        + "\">\n");
     buffer.append("\n");
     for (final PluginIU plugin : pluginList) {
       buffer.append("\t" + plugin.generateFeatureSection() + "\n");
