@@ -39,7 +39,7 @@ public class SecondLevelGenerator {
         + "  xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n" + "  <modelVersion>4.0.0</modelVersion>\n"
         + "\n" + "  <artifactId>org.ietr.externaldeps.parent</artifactId>\n" + "  <groupId>org.ietr.externaldeps</groupId>\n" + "  <packaging>pom</packaging>\n"
         + "  <version>1.0.0</version>\n" + "  \n" + "  <repositories>\n" + "    <repository>\n" + "      <id>original-site</id>\n"
-        + "      <layout>p2</layout>\n" + "      <url>file://" + inputSite.getAbsolutePath() + "</url>\n" + "    </repository>\n" + "  </repositories>\n"
+        + "      <layout>p2</layout>\n" + "      <url>" + inputSite.toURI().toString() + "</url>\n" + "    </repository>\n" + "  </repositories>\n"
         + "  \n" + "  <modules>\n" + "  <module>feature</module>\n" + "  <module>site</module>\n" + "  </modules>\n" + "</project>\n" + "";
 
     writer = new PrintWriter(currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
