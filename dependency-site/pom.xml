@@ -206,7 +206,7 @@
 				<executions>
 					<execution>
 						<id>latest-symlink</id>
-						<phase>deploy</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>run</goal>
 						</goals>
