@@ -198,6 +198,7 @@
 				</executions>
 			</plugin>
 			
+			<!-- Ant Task to create a symlink to the latest version -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -205,7 +206,7 @@
 				<executions>
 					<execution>
 						<id>latest-symlink</id>
-						<phase>package</phase>
+						<phase>deploy</phase>
 						<goals>
 							<goal>run</goal>
 						</goals>
@@ -214,6 +215,41 @@
 								<symlink link="${project.build.directory}/gensite/update-site/${project.groupId}-latest" resource="${project.groupId}-${project.version}"/>
 							</target>
 							<exportAntProperties>true</exportAntProperties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			
+			<!--
+				This plugin will fetch all features and plugins
+				from the online compliete Preesm update site (URL defined in the 
+				parent POM). This will be executed after packaging the
+				update site for the current release. It will merge the
+				features and plugins from the online update site and 
+				the ones generated for the current release, in 
+				${project.build.directory}/gensite/update-site/complete.
+				-->
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-p2-extras-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>copy-current</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>mirror</goal>
+						</goals>
+						<configuration>
+							<source>
+								<repository><url>${project.baseUri}/target/gensite/update-site/${project.groupId}-${project.version}</url></repository>
+								<repository><url>${complete.p2.repo}</url></repository>
+							</source>
+							<append>false</append>
+							<compress>false</compress>
+							<includeOptional>true</includeOptional>
+							<destination>${project.build.directory}/gensite/update-site/complete</destination>
 						</configuration>
 					</execution>
 				</executions>
