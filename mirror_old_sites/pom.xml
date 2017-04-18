@@ -8,7 +8,7 @@
   	<properties>  
 		<tycho-version>1.0.0</tycho-version>  	
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
-		<updatesitesroot>http://preesm.sourceforge.net/eclipse/</updatesitesroot>
+		<old.updatesites.root>http://preesm.sourceforge.net/eclipse/</old.updatesites.root>
 	</properties>
 	<build>  
 		<plugins>
@@ -33,25 +33,25 @@
 							<repository><url>${updatesitesroot}/update-site/</url></repository>
 							 -->
 							 
-							<repository><url>${updatesitesroot}/complete-0.1.0/</url></repository>
-							<repository><url>${updatesitesroot}/complete-0.5.3/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-0.1.0/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-0.5.3/</url></repository>
 
-							<repository><url>${updatesitesroot}/complete-0.5.5/</url></repository>
-							<repository><url>${updatesitesroot}/complete-0.5.6/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-0.5.5/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-0.5.6/</url></repository>
 
-							<repository><url>${updatesitesroot}/complete-0.7.0.v20130512/</url></repository>
-							<repository><url>${updatesitesroot}/complete-1.0.1.rc1-v20131030/updates/</url></repository>
-							<repository><url>${updatesitesroot}/complete-2.1.3/</url></repository>
-							<repository><url>${updatesitesroot}/complete-2.2.1/</url></repository>
-							<repository><url>${updatesitesroot}/complete-2.2.2/</url></repository>
-							<repository><url>${updatesitesroot}/complete-2.2.3/</url></repository>
-							<repository><url>${updatesitesroot}/complete-2.2.4/</url></repository>
-							<repository><url>${updatesitesroot}/complete-2.2.5/</url></repository>
-							<repository><url>${updatesitesroot}/complete-201402130920/</url></repository>
-							<repository><url>${updatesitesroot}/complete-201403211752/</url></repository>
-							<repository><url>${updatesitesroot}/complete-201409091710/</url></repository>
-							<repository><url>${updatesitesroot}/complete-201410161538/</url></repository>
-							<repository><url>${updatesitesroot}/complete-201411201049/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-0.7.0.v20130512/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-1.0.1.rc1-v20131030/updates/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-2.1.3/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-2.2.1/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-2.2.2/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-2.2.3/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-2.2.4/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-2.2.5/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-201402130920/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-201403211752/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-201409091710/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-201410161538/</url></repository>
+							<repository><url>${old.updatesites.root}/complete-201411201049/</url></repository>
 
 							<!--
 							Failing (missing features/plugins ...)
