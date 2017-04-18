@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
 	<!-- Category Definitions -->
-	<category-def name="3rd_party_libs" label="3rd party Libraries">
+	<category-def name="3rd_party_libs" label="3rd Party Libraries">
 		<description>
 			Third party libraries.
 		</description>
 	</category-def>
-	<category-def name="3rd_party_libs_source_components" label="3rd party Libraries (Developer Resources)">
+	<category-def name="3rd_party_libs_source_components" label="3rd Party Libraries (Source)">
 		<description>
-			Developper resources (includes source code).
+			Developper resources (source code bundles, when available).
 		</description>
 	</category-def>
 	
