@@ -179,7 +179,7 @@
 			<!-- ############################################### -->
 
 			<!-- Custom plugin to generate a feature from the previously generated P2 
-				repository, and generate a second repository for this feature. Result-->
+				repository, and generate a second repository for this feature.-->
 			<plugin>
 				<groupId>org.ietr.externaldeps</groupId>
 				<artifactId>genfeature-maven-plugin</artifactId>
@@ -198,30 +198,22 @@
 				</executions>
 			</plugin>
 			
-
-			<!-- This plugin is in charge of mirroring the different update sites
-				and put everything in place in ${project.build.directory}/gensite/ -->
 			<plugin>
-				<groupId>org.eclipse.tycho.extras</groupId>
-				<artifactId>tycho-p2-extras-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
 				<executions>
 					<execution>
-						<id>copy-current</id>
+						<id>latest-symlink</id>
 						<phase>package</phase>
 						<goals>
-							<goal>mirror</goal>
+							<goal>run</goal>
 						</goals>
 						<configuration>
-							<source>
-								<repository>
-									<url>${project.baseUri}/target/gensite/update-site/${project.groupId}-${project.version}</url>
-								</repository>
-							</source>
-							<append>false</append>
-							<compress>false</compress>
-							<includeOptional>true</includeOptional>
-							<destination>${project.build.directory}/gensite/update-site/${project.groupId}-latest</destination>
+							<target name="Create Symlink for latest release">
+								<symlink link="${project.build.directory}/gensite/update-site/${project.groupId}-latest" resource="${project.groupId}-${project.version}"/>
+							</target>
+							<exportAntProperties>true</exportAntProperties>
 						</configuration>
 					</execution>
 				</executions>
