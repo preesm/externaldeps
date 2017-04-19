@@ -8,7 +8,7 @@
   	<properties>  
 		<tycho-version>1.0.0</tycho-version>  	
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
-		<old.updatesites.root>http://preesm.sourceforge.net/eclipse/</old.updatesites.root>
+		<old.updatesites.root>http://preesm.sourceforge.net/eclipse/update-site-backups/</old.updatesites.root>
 	</properties>
 	<build>  
 		<plugins>
