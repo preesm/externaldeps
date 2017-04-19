@@ -198,28 +198,6 @@
 				</executions>
 			</plugin>
 			
-			<!-- Ant Task to create a symlink to the latest version -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>latest-symlink</id>
-						<phase>package</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<target name="Create Symlink for latest release">
-								<symlink link="${project.build.directory}/gensite/update-site/${project.groupId}-latest" resource="${project.groupId}-${project.version}"/>
-							</target>
-							<exportAntProperties>true</exportAntProperties>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			
 			
 			<!--
 				This plugin will fetch all features and plugins
@@ -246,7 +224,7 @@
 								<repository><url>${project.baseUri}/target/gensite/update-site/${project.groupId}-${project.version}</url></repository>
 								<repository><url>${complete.p2.repo}</url></repository>
 							</source>
-							<append>false</append>
+							<append>true</append>
 							<compress>false</compress>
 							<includeOptional>true</includeOptional>
 							<destination>${project.build.directory}/gensite/update-site/complete</destination>
@@ -254,6 +232,30 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			<!-- Ant Task to create a symlink to the latest version -->
+			<!-- ## NOTE: make sure this is after the tycho-p2-extras-plugin in the pom.xml text -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>latest-symlink</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target name="Create Symlink for latest release">
+								<symlink link="${project.build.directory}/gensite/update-site/${project.groupId}-latest" resource="${project.groupId}-${project.version}"/>
+							</target>
+							<exportAntProperties>true</exportAntProperties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
 		</plugins>
 	</build>
 
@@ -297,7 +299,7 @@
 						<version>1.8</version>
 						<executions>
 							<execution>
-								<id>print-hint-msg</id>
+								<id>read-SF-user-login</id>
 								<phase>deploy</phase>
 								<goals>
 									<goal>run</goal>
@@ -314,22 +316,10 @@
 										<echo>### When prompted for login, please do not specify ",preesm".</echo>
 										<echo>###  </echo>
 										<echo>############################################</echo>
-									</target>
-								</configuration>
-							</execution>
-							<execution>
-								<id>read-SF-user-login</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<target name="Read SourceForge user login">
 										<input
 											message="Please enter your Sourceforge Login (without project name) : "
 											addproperty="user-login" />
 									</target>
-									<exportAntProperties>true</exportAntProperties>
 								</configuration>
 							</execution>
 						</executions>
@@ -337,7 +327,7 @@
 					<plugin>
 						<!-- This plugin calls the system RSync to upload the complete update
 							site on SF website. It will fail if the binary is not present in $PATH. Disabled
-							on windows hosts (see comment above). -->
+							on windows hosts (see comment at the profile declaration above). -->
 						<artifactId>exec-maven-plugin</artifactId>
 						<groupId>org.codehaus.mojo</groupId>
 						<version>1.6.0</version>
