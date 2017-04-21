@@ -79,7 +79,7 @@ public class SiteProjectGenerator {
     buffer.append("  <artifactId>org.ietr.externaldeps.dependency.site</artifactId>\n");
     buffer.append("  <packaging>eclipse-repository</packaging>\n");
     buffer.append("  \n");
-    test(generateAllInOneP2Feature, buffer);
+    SiteProjectGenerator.test(generateAllInOneP2Feature, buffer);
     buffer.append("      <plugin>\n");
     buffer.append("        <groupId>org.eclipse.tycho</groupId>\n");
     buffer.append("        <artifactId>tycho-p2-repository-plugin</artifactId>\n");

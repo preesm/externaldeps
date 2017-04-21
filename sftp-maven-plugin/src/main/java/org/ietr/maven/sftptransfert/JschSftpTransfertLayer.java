@@ -49,12 +49,12 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
       this.session.connect();
       this.connected = true;
 
-      mainSftpChannel = (ChannelSftp) this.session.openChannel("sftp");
-      if (mainSftpChannel == null) {
+      this.mainSftpChannel = (ChannelSftp) this.session.openChannel("sftp");
+      if (this.mainSftpChannel == null) {
         throw new JSchException("Could not create channel", new NullPointerException());
       }
-      mainSftpChannel.connect();
-    } catch (JSchException e) {
+      this.mainSftpChannel.connect();
+    } catch (final JSchException e) {
       throw new org.ietr.maven.sftptransfert.SftpException("Could not connect", e);
     }
   }
@@ -83,12 +83,12 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
     boolean res;
     try {
 
-      if (fastSymLinkTest(remoteDirPath, mainSftpChannel)) {
+      if (fastSymLinkTest(remoteDirPath, this.mainSftpChannel)) {
         res = false;
       } else {
         // do not use this.ls
         @SuppressWarnings("unchecked")
-        final List<LsEntry> ls = new ArrayList<LsEntry>(mainSftpChannel.ls(remoteDirPath));
+        final List<LsEntry> ls = new ArrayList<LsEntry>(this.mainSftpChannel.ls(remoteDirPath));
         // ls should list . and .. at least if it is a directory. If it is a file, it will list the filename itself only
         final int size = ls.size();
         res = size > 1;
@@ -116,7 +116,7 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
   public final boolean isSymlink(final String remotePath) {
     boolean res;
     try {
-      mainSftpChannel.readlink(remotePath);
+      this.mainSftpChannel.readlink(remotePath);
       res = true;
     } catch (final SftpException e) {
       res = false;
@@ -130,7 +130,7 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
 
     try {
       @SuppressWarnings("unchecked")
-      final List<LsEntry> ls = new ArrayList<LsEntry>(mainSftpChannel.ls(remoteDirPath));
+      final List<LsEntry> ls = new ArrayList<LsEntry>(this.mainSftpChannel.ls(remoteDirPath));
       for (final LsEntry fileEntry : ls) {
         final String filename = fileEntry.getFilename();
         if (".".equals(filename) || "..".equals(filename) || filename.startsWith(".")) {
@@ -138,7 +138,7 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
         }
         res.add(remoteDirPath + "/" + filename);
       }
-    } catch (SftpException e) {
+    } catch (final SftpException e) {
       throw new org.ietr.maven.sftptransfert.SftpException("Could not make dir", e);
     }
 
@@ -148,8 +148,8 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
   @Override
   public final void mkdir(final String remoteDirPath) {
     try {
-      mainSftpChannel.mkdir(remoteDirPath);
-    } catch (SftpException e) {
+      this.mainSftpChannel.mkdir(remoteDirPath);
+    } catch (final SftpException e) {
       throw new org.ietr.maven.sftptransfert.SftpException("Could not make dir", e);
     }
   }
@@ -176,8 +176,8 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
   public final String readSymlink(final String remotePath) {
     String readlink;
     try {
-      readlink = mainSftpChannel.readlink(remotePath);
-    } catch (SftpException e) {
+      readlink = this.mainSftpChannel.readlink(remotePath);
+    } catch (final SftpException e) {
       throw new org.ietr.maven.sftptransfert.SftpException("Could not read link", e);
     }
     return readlink;
@@ -240,16 +240,16 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
       final Path parent = path.getParent();
       final String linkParentDirPath = parent.toString();
       // Jsch implementation actually requires to CD first.
-      mainSftpChannel.cd(linkParentDirPath);
+      this.mainSftpChannel.cd(linkParentDirPath);
       final String actualLinkName = path.getFileName().toString();
 
       if (isSymlink(remotePath)) {
-        mainSftpChannel.rm(actualLinkName);
+        this.mainSftpChannel.rm(actualLinkName);
       }
 
-      mainSftpChannel.symlink(linkPath, actualLinkName);
+      this.mainSftpChannel.symlink(linkPath, actualLinkName);
 
-    } catch (SftpException e) {
+    } catch (final SftpException e) {
       throw new org.ietr.maven.sftptransfert.SftpException("Could not write link", e);
     }
   }

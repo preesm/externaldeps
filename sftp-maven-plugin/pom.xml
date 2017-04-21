@@ -4,7 +4,7 @@
 
 	<artifactId>sftp-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	
+
 	<parent>
 		<groupId>org.ietr.externaldeps</groupId>
 		<artifactId>org.ietr.externaldeps.parent</artifactId>
@@ -117,7 +117,7 @@
 									<mode>send</mode>
 									<remotePath>/root/test/gensitetest/</remotePath>
 									<!-- <localPath>/home/anmorvan/gensite/</localPath> -->
-									<localPath>/home/anmorvan/test/update-site/</localPath>
+									<localPath>/home/anmorvan/insa</localPath>
 
 								</configuration>
 								<goals>

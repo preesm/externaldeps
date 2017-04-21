@@ -14,8 +14,8 @@ public final class SftpConnection {
 
   private final Log                 log;
   private final ISftpTransfertLayer connect;
-
-  private String indent = "";
+  private String                    indent     = "";
+  private boolean                   fastChecks = false;
 
   public SftpConnection(final Log log, final String sftpUser, final String sftpHost, final int sftpPort, final String sftpPassword,
       final boolean strictHostKeyChecking) {
@@ -142,7 +142,11 @@ public final class SftpConnection {
     final Path remoteDirPath = Paths.get(remotePath);
     final Path remoteParentPath = remoteDirPath.getParent();
     final String remoteParentPathString = remoteParentPath.toString();
-    this.connect.mkdirs(remoteParentPathString);
+    if (!this.fastChecks) {
+      this.connect.mkdirs(remoteParentPathString);
+    }
+
+    this.fastChecks = true;
 
     final Path path = FileSystems.getDefault().getPath(localPath);
     Files.list(path).forEach(f -> {
@@ -153,6 +157,7 @@ public final class SftpConnection {
         this.log.error(e);
       }
     });
+    this.fastChecks = false;
   }
 
   private void sendFile(final String localPath, final String remotePath) {
@@ -160,7 +165,9 @@ public final class SftpConnection {
     final Path remoteParentPath = remoteFilePath.getParent();
     final String remoteParentPathString = remoteParentPath.toString();
 
-    this.connect.mkdirs(remoteParentPathString);
+    if (!this.fastChecks) {
+      this.connect.mkdirs(remoteParentPathString);
+    }
     this.connect.send(localPath, remotePath);
   }
 
@@ -172,7 +179,9 @@ public final class SftpConnection {
     final Path remoteParentPath = localLinkPath.getParent();
     final String remoteParentPathString = remoteParentPath.toString();
 
-    this.connect.mkdirs(remoteParentPathString);
+    if (!this.fastChecks) {
+      this.connect.mkdirs(remoteParentPathString);
+    }
     this.connect.writeSymlink(remotePath, localSymbolicLinkStringValue);
   }
 
