@@ -2,7 +2,7 @@ package org.ietr.externaldeps.sftp_maven_plugin;
 
 import java.util.List;
 
-public interface ISftpConnection {
+public interface ISftpTransfertLayer {
   public void connectTo(final String host, final int port, final String user, final String password, final boolean strict) throws Exception;
 
   public void disconnect();

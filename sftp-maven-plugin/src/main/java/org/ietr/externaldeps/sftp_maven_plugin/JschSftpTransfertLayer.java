@@ -16,13 +16,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class JschSftpConnection implements ISftpConnection {
+public class JschSftpTransfertLayer implements ISftpTransfertLayer {
 
   private static final ExecutorService threadPool = Executors.newFixedThreadPool(8);
 
-  public static final JschSftpConnection connect(final String host, final int port, final String user, final String password,
+  public static final JschSftpTransfertLayer connect(final String host, final int port, final String user, final String password,
       final boolean strictHostKeyChecking) {
-    final JschSftpConnection jschSftpConnection = new JschSftpConnection();
+    final JschSftpTransfertLayer jschSftpConnection = new JschSftpTransfertLayer();
     try {
       jschSftpConnection.connectTo(host, port, user, password, strictHostKeyChecking);
     } catch (final JSchException e) {
@@ -32,7 +32,7 @@ public class JschSftpConnection implements ISftpConnection {
     return jschSftpConnection;
   }
 
-  private JschSftpConnection() {
+  private JschSftpTransfertLayer() {
   }
 
   private Session session   = null;
@@ -56,12 +56,12 @@ public class JschSftpConnection implements ISftpConnection {
 
   @Override
   public final void disconnect() {
-    JschSftpConnection.threadPool.shutdown();
+    JschSftpTransfertLayer.threadPool.shutdown();
     try {
-      JschSftpConnection.threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
+      JschSftpTransfertLayer.threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
     } catch (final InterruptedException e) {
     }
-    JschSftpConnection.threadPool.shutdown();
+    JschSftpTransfertLayer.threadPool.shutdown();
     this.session.disconnect();
     this.connected = false;
   }
@@ -73,7 +73,7 @@ public class JschSftpConnection implements ISftpConnection {
 
   @Override
   public final void send(final String localFilePath, final String remoteFilePath) {
-    JschSftpConnection.threadPool.execute(() -> {
+    JschSftpTransfertLayer.threadPool.execute(() -> {
       ChannelSftp sftpChannel = null;
       try {
         sftpChannel = (ChannelSftp) this.session.openChannel("sftp");
@@ -92,7 +92,7 @@ public class JschSftpConnection implements ISftpConnection {
 
   @Override
   public final void receive(final String remoteFilePath, final String localFilePath) {
-    JschSftpConnection.threadPool.execute(() -> {
+    JschSftpTransfertLayer.threadPool.execute(() -> {
       ChannelSftp sftpChannel = null;
       try {
         sftpChannel = (ChannelSftp) this.session.openChannel("sftp");

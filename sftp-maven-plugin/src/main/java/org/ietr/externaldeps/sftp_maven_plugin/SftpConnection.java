@@ -8,17 +8,16 @@ import java.text.MessageFormat;
 import java.util.List;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.plugin.logging.SystemStreamLog;
 
 public final class SftpConnection {
 
   private final Log             log;
-  private final ISftpConnection connect;
+  private final ISftpTransfertLayer connect;
 
   public SftpConnection(final Log log, final String sFTPUSER, final String sFTPHOST, final int sFTPPORT, final String sFTPPASS,
       final boolean strictHostKeyChecking) {
     this.log = log;
-    this.connect = JschSftpConnection.connect(sFTPHOST, sFTPPORT, sFTPUSER, sFTPPASS, strictHostKeyChecking);
+    this.connect = JschSftpTransfertLayer.connect(sFTPHOST, sFTPPORT, sFTPUSER, sFTPPASS, strictHostKeyChecking);
   }
 
   public final void disconnect() {
