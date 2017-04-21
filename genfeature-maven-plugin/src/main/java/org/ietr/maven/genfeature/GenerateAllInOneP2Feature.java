@@ -1,4 +1,4 @@
-package org.ietr.externaldeps;
+package org.ietr.maven.genfeature;
 
 import java.io.File;
 import java.util.Arrays;
@@ -98,7 +98,7 @@ public class GenerateAllInOneP2Feature extends AbstractMojo {
       FileUtils.copyDirectoryStructure(new File(this.currentWorkingDirectory.getAbsolutePath() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
           + GenerateAllInOneP2Feature.SECOND_LEVEL_SITE_PROJECT + "/target/repository"), this.outputDirectory);
     } catch (final Exception e) {
-      e.printStackTrace();
+      getLog().error(e);
       throw new MojoFailureException(e, "Could not execute second level", e.getMessage());
     }
     getLog().info("Featured repository generated.");

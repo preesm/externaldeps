@@ -1,4 +1,4 @@
-package org.ietr.externaldeps.sftp_maven_plugin;
+package org.ietr.maven.sftptransfert;
 
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -11,7 +11,7 @@ import org.apache.maven.plugin.logging.Log;
 
 public final class SftpConnection {
 
-  private final Log             log;
+  private final Log                 log;
   private final ISftpTransfertLayer connect;
 
   public SftpConnection(final Log log, final String sFTPUSER, final String sFTPHOST, final int sFTPPORT, final String sFTPPASS,
@@ -61,8 +61,7 @@ public final class SftpConnection {
       }
     } catch (final Exception e) {
       final String message = MessageFormat.format("Could not send {0} : {1}", localPath, e.getMessage());
-      this.log.error(message);
-      e.printStackTrace();
+      this.log.error(message, e);
       throw new MojoFailureException(e, message, message);
     }
   }
@@ -96,8 +95,7 @@ public final class SftpConnection {
       }
     } catch (final Exception e) {
       final String message = MessageFormat.format("Could not receive {0} : {1}", remotePath, e.getMessage());
-      this.log.error(message);
-      e.printStackTrace();
+      this.log.error(message, e);
       throw new MojoFailureException(e, message, message);
     }
   }
@@ -131,7 +129,7 @@ public final class SftpConnection {
         final String string = f.getFileName().toString();
         SftpConnection.this.send(f.toString(), remotePath + "/" + string);
       } catch (final Exception e) {
-        e.printStackTrace();
+        log.error(e);
       }
     });
   }
@@ -168,7 +166,7 @@ public final class SftpConnection {
         final String childFileName = path.getFileName().toString();
         SftpConnection.this.receive(s, localPath + "/" + childFileName);
       } catch (final Exception e) {
-        e.printStackTrace();
+        log.error(e);
       }
     });
   }

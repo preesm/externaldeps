@@ -1,4 +1,4 @@
-package org.ietr.externaldeps.sftp_maven_plugin;
+package org.ietr.maven.sftptransfert;
 
 import java.io.File;
 import java.text.MessageFormat;

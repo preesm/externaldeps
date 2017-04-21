@@ -1,4 +1,4 @@
-package org.ietr.externaldeps.sftp_maven_plugin;
+package org.ietr.maven.sftptransfert;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.ChannelSftp.LsEntry;
@@ -26,8 +26,7 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
     try {
       jschSftpConnection.connectTo(host, port, user, password, strictHostKeyChecking);
     } catch (final JSchException e) {
-      e.printStackTrace();
-      return null;
+      throw new RuntimeException("Could not connect", e);
     }
     return jschSftpConnection;
   }
@@ -82,7 +81,7 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
         sftpChannel.put(localFilePath, remoteFilePath);
 
       } catch (JSchException | SftpException e) {
-        e.printStackTrace();
+        throw new RuntimeException("Send failed : " + e.getMessage(), e);
       } finally {
         sftpChannel.exit();
         sftpChannel.disconnect();
@@ -101,7 +100,7 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
         sftpChannel.get(remoteFilePath, localFilePath);
 
       } catch (JSchException | SftpException e) {
-        e.printStackTrace();
+        throw new RuntimeException("Receive failed : " + e.getMessage(), e);
       } finally {
         sftpChannel.exit();
         sftpChannel.disconnect();

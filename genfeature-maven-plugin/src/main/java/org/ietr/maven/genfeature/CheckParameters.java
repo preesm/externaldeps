@@ -1,4 +1,4 @@
-package org.ietr.externaldeps;
+package org.ietr.maven.genfeature;
 
 import java.io.File;
 import java.io.IOException;
