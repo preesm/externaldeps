@@ -16,6 +16,8 @@ public final class SftpConnection {
   private final ISftpTransfertLayer connect;
   private String                    indent     = "";
   private boolean                   fastChecks = false;
+  private int                       dirLevel   = 0;
+  private int                       fastCheckDirLevel;
 
   public SftpConnection(final Log log, final String sftpUser, final String sftpHost, final int sftpPort, final String sftpPassword,
       final boolean strictHostKeyChecking) {
@@ -139,14 +141,15 @@ public final class SftpConnection {
   }
 
   private void sendDir(final String localPath, final String remotePath) throws IOException {
+    this.dirLevel++;
     final Path remoteDirPath = Paths.get(remotePath);
     final Path remoteParentPath = remoteDirPath.getParent();
     final String remoteParentPathString = remoteParentPath.toString();
     if (!this.fastChecks) {
       this.connect.mkdirs(remoteParentPathString);
+      this.fastChecks = true;
+      this.fastCheckDirLevel = this.dirLevel;
     }
-
-    this.fastChecks = true;
 
     final Path path = FileSystems.getDefault().getPath(localPath);
     Files.list(path).forEach(f -> {
@@ -157,7 +160,11 @@ public final class SftpConnection {
         this.log.error(e);
       }
     });
-    this.fastChecks = false;
+
+    if (this.fastCheckDirLevel == this.dirLevel) {
+      this.fastChecks = false;
+    }
+    this.dirLevel--;
   }
 
   private void sendFile(final String localPath, final String remotePath) {

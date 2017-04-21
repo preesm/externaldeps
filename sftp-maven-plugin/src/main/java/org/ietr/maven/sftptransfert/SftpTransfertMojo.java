@@ -20,33 +20,33 @@ public final class SftpTransfertMojo extends AbstractMojo {
   public MavenProject project;
 
   @Parameter(property = "serverId", required = true)
-  private String serverId;
+  public String serverId;
 
   @Parameter(property = "serverHost", required = true)
-  private String serverHost;
+  public String serverHost;
 
   @Parameter(property = "mode", defaultValue = "receive", required = true)
-  private String mode;
+  public String mode;
 
   @Parameter(defaultValue = "22", property = "serverPort", required = true)
-  private int serverPort;
+  public int serverPort;
 
   @Parameter(defaultValue = "true", property = "strictHostKeyChecking", required = true)
-  private boolean strictHostKeyChecking;
+  public boolean strictHostKeyChecking;
 
   @Parameter(property = "localPath", required = true)
-  private String localPath;
+  public String localPath;
   @Parameter(property = "remotePath", required = true)
-  private String remotePath;
+  public String remotePath;
 
   @Parameter(defaultValue = "${settings}", readonly = true)
-  private Settings settings;
+  public Settings settings;
 
   @Parameter(defaultValue = "${project.basedir}", readonly = true)
-  private File basedir;
+  public File basedir;
 
   @Parameter(defaultValue = "${project.build.directory}", readonly = true)
-  private File target;
+  public File target;
 
   @Override
   public final void execute() throws MojoExecutionException, MojoFailureException {
