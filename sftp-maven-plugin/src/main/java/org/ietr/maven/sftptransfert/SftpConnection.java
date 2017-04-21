@@ -56,7 +56,7 @@ public final class SftpConnection {
           receiveDir(remotePath, localPath);
           this.indent = tmp;
         } else {
-          final String message = MessageFormat.format("Remote path {0} points to a file. Using sendFile().", remotePath);
+          final String message = MessageFormat.format("Remote path {0} points to a file. Using receiveFile().", remotePath);
           this.log.debug(message);
           receiveFile(remotePath, localPath);
         }
