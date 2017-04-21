@@ -17,16 +17,13 @@ import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.CommandLineException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GenerateAllInOneP2Feature.
  */
-/**
- * @author anmorvan
- *
- */
 @Mojo(name = "generate-feature", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class GenerateAllInOneP2Feature extends AbstractMojo {
+
+  public static final String CHARSET = "UTF-8";
 
   /** The Constant SECOND_LEVEL_FOLDER_NAME. */
   public static final String SECOND_LEVEL_FOLDER_NAME = "secondLevel";
@@ -81,8 +78,29 @@ public class GenerateAllInOneP2Feature extends AbstractMojo {
   public String featureProvider;
 
   /**
+   * Call 2 nd level.
+   *
+   * @throws MavenInvocationException
+   *           the maven invocation exception
+   */
+  private void call2ndLevel() throws MavenInvocationException {
+    final InvocationRequest request = new DefaultInvocationRequest();
+    request.setDebug(false);
+    request.setPomFile(new File(this.currentWorkingDirectory.getAbsolutePath() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
+        + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME));
+    request.setGoals(Arrays.asList("clean", "package"));
+    final Invoker invoker = new DefaultInvoker();
+    final InvocationResult result = invoker.execute(request);
+    if (result.getExitCode() != 0) {
+      final CommandLineException executionException = result.getExecutionException();
+      throw new IllegalStateException("Build failed: return code != 0", executionException);
+    }
+  }
+
+  /**
    *
    */
+  @Override
   public void execute() throws MojoFailureException {
     getLog().info("Starting all-in-one feature generation for all jars in ");
     getLog().info(this.inputSite.getAbsolutePath());
@@ -102,26 +120,6 @@ public class GenerateAllInOneP2Feature extends AbstractMojo {
       throw new MojoFailureException(e, "Could not execute second level", e.getMessage());
     }
     getLog().info("Featured repository generated.");
-  }
-
-  /**
-   * Call 2 nd level.
-   *
-   * @throws MavenInvocationException
-   *           the maven invocation exception
-   */
-  private void call2ndLevel() throws MavenInvocationException {
-    final InvocationRequest request = new DefaultInvocationRequest();
-    request.setDebug(false);
-    request.setPomFile(new File(this.currentWorkingDirectory.getAbsolutePath() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/"
-        + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME));
-    request.setGoals(Arrays.asList("clean", "package"));
-    final Invoker invoker = new DefaultInvoker();
-    final InvocationResult result = invoker.execute(request);
-    if (result.getExitCode() != 0) {
-      final CommandLineException executionException = result.getExecutionException();
-      throw new IllegalStateException("Build failed: return code != 0", executionException);
-    }
   }
 
 }

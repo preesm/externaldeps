@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import org.apache.maven.plugin.MojoFailureException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SecondLevelGenerator.
  */
@@ -23,7 +22,7 @@ public class SecondLevelGenerator {
    * @throws IOException
    *           Signals that an I/O exception has occurred.
    */
-  public void generate(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws MojoFailureException, IOException {
+  public void generate(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws IOException {
 
     // make directories
     new File(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/" + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME).mkdirs();
@@ -63,7 +62,7 @@ public class SecondLevelGenerator {
    *           the unsupported encoding exception
    */
   private void generateParentPomFile(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws FileNotFoundException, UnsupportedEncodingException {
-    final StringBuffer buffer = new StringBuffer();
+    final StringBuilder buffer = new StringBuilder();
 
     buffer.append("<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n");
     buffer.append("  xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n");
@@ -91,7 +90,7 @@ public class SecondLevelGenerator {
     buffer.append("</project>\n");
     buffer.append("");
 
-    PrintWriter writer = new PrintWriter(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/"
+    final PrintWriter writer = new PrintWriter(generateAllInOneP2Feature.currentWorkingDirectory.getAbsoluteFile() + "/"
         + GenerateAllInOneP2Feature.SECOND_LEVEL_FOLDER_NAME + "/" + GenerateAllInOneP2Feature.MAVEN_PROJECT_FILE_NAME, "UTF-8");
     writer.println(buffer.toString());
     writer.close();

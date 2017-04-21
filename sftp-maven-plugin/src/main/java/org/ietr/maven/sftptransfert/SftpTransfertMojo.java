@@ -54,17 +54,17 @@ public final class SftpTransfertMojo extends AbstractMojo {
 
     final Server server = this.settings.getServer(this.serverId);
     if (server == null) {
-      final String message = MessageFormat.format(
-          "Error: Could not find server with id '{0}'. Make sure you have a <servers>...</servers> section with proper <server> configuration in your maven settings. See https://maven.apache.org/settings.html#Servers.",
-          this.serverId);
+      final String message = MessageFormat
+          .format("Error: Could not find server with id '{0}'. Make sure you have a <servers>...</servers> section with proper <server> "
+              + "configuration in your maven settings. See https://maven.apache.org/settings.html#Servers.", this.serverId);
       log.error(message);
       throw new MojoFailureException(message);
     }
 
-    final String SFTPHOST = this.serverHost;
-    final int SFTPPORT = this.serverPort;
-    final String SFTPUSER = server.getUsername();
-    final String SFTPPASS = server.getPassword();
+    final String sftpHost = this.serverHost;
+    final int sftpPort = this.serverPort;
+    final String sftpUser = server.getUsername();
+    final String sftpPassword = server.getPassword();
     final boolean receivingMode;
 
     if ("receive".equals(this.mode)) {
@@ -73,13 +73,13 @@ public final class SftpTransfertMojo extends AbstractMojo {
       if ("send".equals(this.mode)) {
         receivingMode = false;
       } else {
-        final String message = MessageFormat.format("Unsupported mode '{0}'. Supported modes are 'receive' (default) and 'send'.", this.mode);
+        final String message = MessageFormat.format("Unsupported mode {0}. Supported modes are receive (default) and send.", this.mode);
         log.error(message);
         throw new MojoFailureException(message);
       }
     }
 
-    final SftpConnection sftpTransfert = new SftpConnection(log, SFTPUSER, SFTPHOST, SFTPPORT, SFTPPASS, this.strictHostKeyChecking);
+    final SftpConnection sftpTransfert = new SftpConnection(log, sftpUser, sftpHost, sftpPort, sftpPassword, this.strictHostKeyChecking);
     if (receivingMode) {
       sftpTransfert.receive(this.remotePath, this.localPath);
     } else {

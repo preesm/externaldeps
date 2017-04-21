@@ -3,24 +3,12 @@ package org.ietr.maven.genfeature;
 import java.io.File;
 import java.io.IOException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CheckParameters.
  */
 public class CheckParameters {
 
-  /**
-   * Check parameters.
-   *
-   * @param generateAllInOneP2Feature
-   *          the generate all in one P 2 feature
-   * @throws IOException
-   *           Signals that an I/O exception has occurred.
-   */
-  public static final void checkParameters(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws IOException {
-    CheckParameters.checkInputFolder(generateAllInOneP2Feature.inputSite);
-    CheckParameters.checkOutputFolder(generateAllInOneP2Feature.outputDirectory);
-    CheckParameters.checkFeatureName(generateAllInOneP2Feature.featureName);
+  private CheckParameters() {
   }
 
   /**
@@ -35,6 +23,56 @@ public class CheckParameters {
     }
     if (featureName.isEmpty()) {
       throw new IllegalArgumentException();
+    }
+  }
+
+  /**
+   * Check input folder.
+   *
+   * @param inputSite
+   *          the input site
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
+  private static void checkInputFolder(final File inputSite) throws IOException {
+    final boolean exists = inputSite.exists();
+    if (!exists) {
+      throw new IOException("Could not locate input folder [" + inputSite + "]");
+    }
+    final boolean canRead = inputSite.canRead();
+    if (!canRead) {
+      throw new IOException("Can not read input folder [" + inputSite + "]");
+    }
+    final boolean isDir = inputSite.isDirectory();
+    if (!isDir) {
+      throw new IOException("Input folder is not a directory [" + inputSite + "]");
+    }
+    final File[] list = inputSite.listFiles();
+    if (list == null) {
+      throw new IOException("Input folder has a null list of children");
+    }
+    final boolean isEmpty = list.length == 0;
+    if (isEmpty) {
+      throw new IOException("Input folder is empty [" + inputSite + "]");
+    }
+
+    boolean containsPluginFolder = false;
+    boolean containsContentXml = false;
+
+    for (final File file : list) {
+      if ("plugins".equals(file.getName())) {
+        containsPluginFolder = true;
+        CheckParameters.checkPluginFolder(file);
+      }
+      if ("content.xml".equals(file.getName())) {
+        containsContentXml = true;
+      }
+    }
+    if (!containsContentXml) {
+      throw new IllegalArgumentException("Could not locate content.xml file");
+    }
+    if (!containsPluginFolder) {
+      throw new IllegalArgumentException("Could not locate plugins folder");
     }
   }
 
@@ -66,53 +104,17 @@ public class CheckParameters {
   }
 
   /**
-   * Check input folder.
+   * Check parameters.
    *
-   * @param inputSite
-   *          the input site
+   * @param generateAllInOneP2Feature
+   *          the generate all in one P 2 feature
    * @throws IOException
    *           Signals that an I/O exception has occurred.
    */
-  private static void checkInputFolder(final File inputSite) throws IOException {
-    final boolean exists = inputSite.exists();
-    if (!exists) {
-      throw new IOException("Could not locate input folder [" + inputSite + "]");
-    }
-    final boolean canRead = inputSite.canRead();
-    if (!canRead) {
-      throw new IOException("Can not read input folder [" + inputSite + "]");
-    }
-    final boolean isDir = inputSite.isDirectory();
-    if (!isDir) {
-      throw new IOException("Input folder is not a directory [" + inputSite + "]");
-    }
-    final File[] list = inputSite.listFiles();
-    if (list == null) {
-      throw new RuntimeException();
-    }
-    final boolean isEmpty = list.length == 0;
-    if (isEmpty) {
-      throw new IOException("Input folder is empty [" + inputSite + "]");
-    }
-
-    boolean containsPluginFolder = false;
-    boolean containsContentXml = false;
-
-    for (final File file : list) {
-      if ("plugins".equals(file.getName())) {
-        containsPluginFolder = true;
-        CheckParameters.checkPluginFolder(file);
-      }
-      if ("content.xml".equals(file.getName())) {
-        containsContentXml = true;
-      }
-    }
-    if (!containsContentXml) {
-      throw new IllegalArgumentException("Could not locate content.xml file");
-    }
-    if (!containsPluginFolder) {
-      throw new IllegalArgumentException("Could not locate plugins folder");
-    }
+  public static final void checkParameters(final GenerateAllInOneP2Feature generateAllInOneP2Feature) throws IOException {
+    CheckParameters.checkInputFolder(generateAllInOneP2Feature.inputSite);
+    CheckParameters.checkOutputFolder(generateAllInOneP2Feature.outputDirectory);
+    CheckParameters.checkFeatureName(generateAllInOneP2Feature.featureName);
   }
 
   /**
@@ -139,7 +141,7 @@ public class CheckParameters {
     }
     final File[] list = inputPluginFolder.listFiles();
     if (list == null) {
-      throw new RuntimeException();
+      throw new IOException("Input plugin folder has a null list of children");
     }
     final boolean isEmpty = list.length == 0;
     if (isEmpty) {

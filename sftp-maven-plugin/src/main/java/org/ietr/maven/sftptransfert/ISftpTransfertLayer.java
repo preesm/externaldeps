@@ -3,31 +3,31 @@ package org.ietr.maven.sftptransfert;
 import java.util.List;
 
 public interface ISftpTransfertLayer {
-  public void connectTo(final String host, final int port, final String user, final String password, final boolean strict) throws Exception;
+  public void connectTo(final String host, final int port, final String user, final String password, final boolean strict);
 
   public void disconnect();
 
   public boolean isConnected();
 
-  public void send(final String localFilePath, final String remoteFilePath) throws Exception;
-
-  public void receive(final String remoteFilePath, final String localFilePath) throws Exception;
-
-  public void mkdir(final String remoteDirPath) throws Exception;
-
-  public void mkdirs(final String remoteDirPath) throws Exception;
-
   /**
    * Returns false if the path points to a symlink
    */
-  public boolean isDirectory(final String dirPath) throws Exception;
+  public boolean isDirectory(final String dirPath);
 
-  public List<String> ls(final String remoteDirPath) throws Exception;
+  public boolean isSymlink(final String remotePath);
 
-  public boolean isSymlink(final String remotePath) throws Exception;
+  public List<String> ls(final String remoteDirPath);
 
-  public String readSymlink(final String remotePath) throws Exception;
+  public void mkdir(final String remoteDirPath);
 
-  public void writeSymlink(final String remotePath, final String linkPath) throws Exception;
+  public void mkdirs(final String remoteDirPath);
+
+  public String readSymlink(final String remotePath);
+
+  public void receive(final String remoteFilePath, final String localFilePath);
+
+  public void send(final String localFilePath, final String remoteFilePath);
+
+  public void writeSymlink(final String remotePath, final String linkPath);
 
 }
