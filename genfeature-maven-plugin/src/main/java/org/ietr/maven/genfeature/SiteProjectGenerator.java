@@ -79,7 +79,21 @@ public class SiteProjectGenerator {
     buffer.append("  <artifactId>org.ietr.externaldeps.dependency.site</artifactId>\n");
     buffer.append("  <packaging>eclipse-repository</packaging>\n");
     buffer.append("  \n");
-    SiteProjectGenerator.test(generateAllInOneP2Feature, buffer);
+    buffer.append("  <parent>\n");
+    buffer.append("    <artifactId>" + generateAllInOneP2Feature.project.getGroupId() + ".parent</artifactId>\n");
+    buffer.append("    <groupId>" + generateAllInOneP2Feature.project.getGroupId() + "</groupId>\n");
+    buffer.append("    <version>" + generateAllInOneP2Feature.project.getVersion() + "</version>\n");
+    buffer.append("    <relativePath>..</relativePath>\n");
+    buffer.append("  </parent>\n");
+    buffer.append("  \n");
+    buffer.append("  <build>\n");
+    buffer.append("    <plugins>\n");
+    buffer.append("      <plugin>\n");
+    buffer.append("        <groupId>org.eclipse.tycho</groupId>\n");
+    buffer.append("        <artifactId>tycho-maven-plugin</artifactId>\n");
+    buffer.append("        <version>" + GenerateAllInOneP2Feature.TYCHO_VERSION + "</version>\n");
+    buffer.append("        <extensions>true</extensions>\n");
+    buffer.append("      </plugin>\n");
     buffer.append("      <plugin>\n");
     buffer.append("        <groupId>org.eclipse.tycho</groupId>\n");
     buffer.append("        <artifactId>tycho-p2-repository-plugin</artifactId>\n");
@@ -102,24 +116,6 @@ public class SiteProjectGenerator {
         GenerateAllInOneP2Feature.CHARSET);
     writer.println(buffer);
     writer.close();
-  }
-
-  public static void test(final GenerateAllInOneP2Feature generateAllInOneP2Feature, final StringBuilder buffer) {
-    buffer.append("  <parent>\n");
-    buffer.append("    <artifactId>" + generateAllInOneP2Feature.project.getGroupId() + ".parent</artifactId>\n");
-    buffer.append("    <groupId>" + generateAllInOneP2Feature.project.getGroupId() + "</groupId>\n");
-    buffer.append("    <version>" + generateAllInOneP2Feature.project.getVersion() + "</version>\n");
-    buffer.append("    <relativePath>..</relativePath>\n");
-    buffer.append("  </parent>\n");
-    buffer.append("  \n");
-    buffer.append("  <build>\n");
-    buffer.append("    <plugins>\n");
-    buffer.append("      <plugin>\n");
-    buffer.append("        <groupId>org.eclipse.tycho</groupId>\n");
-    buffer.append("        <artifactId>tycho-maven-plugin</artifactId>\n");
-    buffer.append("        <version>" + GenerateAllInOneP2Feature.TYCHO_VERSION + "</version>\n");
-    buffer.append("        <extensions>true</extensions>\n");
-    buffer.append("      </plugin>\n");
   }
 
 }
