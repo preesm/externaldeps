@@ -12,13 +12,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class JschSftpTransfertLayer implements ISftpTransfertLayer {
-
-  private static final ExecutorService threadPool = Executors.newFixedThreadPool(4);
 
   private boolean     connected       = false;
   private Session     session         = null;
@@ -61,14 +56,6 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
 
   @Override
   public final void disconnect() {
-    JschSftpTransfertLayer.threadPool.shutdown();
-    try {
-      JschSftpTransfertLayer.threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
-    } catch (final InterruptedException e) {
-      Thread.currentThread().interrupt();
-      throw new org.ietr.maven.sftptransfert.SftpException("Awaiting termination failed.", e);
-    }
-    JschSftpTransfertLayer.threadPool.shutdown();
     this.session.disconnect();
     this.connected = false;
   }
@@ -82,7 +69,6 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
   public final boolean isDirectory(final String remoteDirPath) {
     boolean res;
     try {
-
       if (isSymlink(remoteDirPath)) {
         res = false;
       } else {
@@ -172,73 +158,20 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
 
   @Override
   public final void receive(final String remoteFilePath, final String localFilePath) {
-    normalReceive(remoteFilePath, localFilePath);
-  }
-
-  final void normalReceive(final String remoteFilePath, final String localFilePath) {
     try {
-
       this.mainSftpChannel.get(remoteFilePath, localFilePath);
-
     } catch (final SftpException e) {
       throw new org.ietr.maven.sftptransfert.SftpException("Receive failed : " + e.getMessage(), e);
     }
-
-  }
-
-  final void threadedReceive(final String remoteFilePath, final String localFilePath) {
-    JschSftpTransfertLayer.threadPool.execute(() -> {
-      ChannelSftp sftpChannel = null;
-      try {
-        sftpChannel = (ChannelSftp) this.session.openChannel("sftp");
-        if (sftpChannel == null) {
-          throw new JSchException("Could not create channel", new NullPointerException());
-        }
-        sftpChannel.connect();
-
-        sftpChannel.get(remoteFilePath, localFilePath);
-
-      } catch (JSchException | SftpException e) {
-        throw new org.ietr.maven.sftptransfert.SftpException("Receive failed : " + e.getMessage(), e);
-      } finally {
-        sftpChannel.exit();
-        sftpChannel.disconnect();
-      }
-    });
   }
 
   @Override
   public final void send(final String localFilePath, final String remoteFilePath) {
-    threadedSend(localFilePath, remoteFilePath);
-  }
-
-  final void normalSend(final String localFilePath, final String remoteFilePath) {
     try {
-
       this.mainSftpChannel.put(localFilePath, remoteFilePath);
-
     } catch (final SftpException e) {
       throw new org.ietr.maven.sftptransfert.SftpException("Send failed : " + e.getMessage(), e);
     }
-
-  }
-
-  final void threadedSend(final String localFilePath, final String remoteFilePath) {
-    JschSftpTransfertLayer.threadPool.execute(() -> {
-      ChannelSftp sftpChannel = null;
-      try {
-        sftpChannel = (ChannelSftp) this.session.openChannel("sftp");
-        sftpChannel.connect();
-
-        sftpChannel.put(localFilePath, remoteFilePath);
-
-      } catch (JSchException | SftpException e) {
-        throw new org.ietr.maven.sftptransfert.SftpException("Send failed : " + e.getMessage(), e);
-      } finally {
-        sftpChannel.exit();
-        sftpChannel.disconnect();
-      }
-    });
   }
 
   @Override
@@ -263,7 +196,6 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
       if (isSymlink(remotePath)) {
         this.mainSftpChannel.rm(actualLinkName);
       }
-
       this.mainSftpChannel.symlink(linkPath, actualLinkName);
 
     } catch (final SftpException e) {
