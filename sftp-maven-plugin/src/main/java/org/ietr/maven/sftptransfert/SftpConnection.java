@@ -151,6 +151,11 @@ public final class SftpConnection {
       this.fastCheckDirLevel = this.dirLevel;
     }
 
+    final boolean isDirectory = this.connect.isDirectory(remotePath);
+    if (!isDirectory) {
+      this.connect.mkdir(remotePath);
+    }
+
     final Path path = FileSystems.getDefault().getPath(localPath);
     Files.list(path).forEach(f -> {
       try {
