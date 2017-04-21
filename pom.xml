@@ -33,9 +33,6 @@
 
 
 	<modules>
-		<!-- maven plugin required to build the final site -->
-		<module>genfeature-maven-plugin</module>
-		<module>sftp-maven-plugin</module>
 		<module>dependency-site</module>
 	</modules>
 </project>

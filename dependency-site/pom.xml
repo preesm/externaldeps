@@ -181,9 +181,9 @@
 			<!-- Custom plugin to generate a feature from the previously generated P2 
 				repository, and generate a second repository for this feature.-->
 			<plugin>
-				<groupId>org.ietr.externaldeps</groupId>
+				<groupId>org.ietr.maven</groupId>
 				<artifactId>genfeature-maven-plugin</artifactId>
-				<version>1.1.0</version>
+				<version>1.0.0</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
