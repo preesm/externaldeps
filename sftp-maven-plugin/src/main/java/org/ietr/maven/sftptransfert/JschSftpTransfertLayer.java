@@ -5,19 +5,25 @@ import com.jcraft.jsch.ChannelSftp.LsEntry;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JschSftpTransfertLayer implements ISftpTransfertLayer {
 
   private boolean     connected       = false;
   private Session     session         = null;
   private ChannelSftp mainSftpChannel = null;
+
+  private final Map<String, SftpATTRS>     remotePathToAttributesCache = new HashMap<>();
+  private final Map<String, List<LsEntry>> remotePathToLsEntryCache    = new HashMap<>();
 
   private JschSftpTransfertLayer() {
   }
@@ -67,32 +73,33 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
 
   @Override
   public final boolean isDirectory(final String remoteDirPath) {
-    boolean res;
     try {
-      if (isSymlink(remoteDirPath)) {
-        res = false;
-      } else {
-        // do not use this.ls
-        @SuppressWarnings("unchecked")
-        final List<LsEntry> ls = new ArrayList<LsEntry>(this.mainSftpChannel.ls(remoteDirPath));
-        // ls should list . and .. at least if it is a directory. If it is a file, it will list the filename itself only
-        final int size = ls.size();
-        res = size > 1;
-      }
+      final SftpATTRS lstat = lsAttrsCache(remoteDirPath);
+      return lstat.isDir();
     } catch (final SftpException e) {
-      res = false;
+      throw new org.ietr.maven.sftptransfert.SftpException("Could not get attributes", e);
     }
-    return res;
   }
 
   @Override
   public final boolean isSymlink(final String remotePath) {
-    boolean res;
     try {
-      this.mainSftpChannel.readlink(remotePath);
-      res = true;
+      final SftpATTRS lstat = lsAttrsCache(remotePath);
+      return lstat.isLink();
     } catch (final SftpException e) {
-      res = false;
+      throw new org.ietr.maven.sftptransfert.SftpException("Could not get attributes", e);
+    }
+  }
+
+  private SftpATTRS lsAttrsCache(final String remotePath) throws SftpException {
+    final String replace = remotePath.replace("//", "/");
+    final boolean containsKey = this.remotePathToAttributesCache.containsKey(replace);
+    SftpATTRS res;
+    if (containsKey) {
+      res = this.remotePathToAttributesCache.get(replace);
+    } else {
+      res = this.mainSftpChannel.lstat(replace);
+      this.remotePathToAttributesCache.put(replace, res);
     }
     return res;
   }
@@ -102,13 +109,13 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
     final List<String> res = new ArrayList<>();
 
     try {
-      @SuppressWarnings("unchecked")
-      final List<LsEntry> ls = new ArrayList<LsEntry>(this.mainSftpChannel.ls(remoteDirPath));
+      final List<LsEntry> ls = lsCache(remoteDirPath);
       for (final LsEntry fileEntry : ls) {
         final String filename = fileEntry.getFilename();
         if (".".equals(filename) || "..".equals(filename) || filename.startsWith(".")) {
           continue;
         }
+        populateAttributesCache(remoteDirPath, fileEntry);
         res.add(remoteDirPath + "/" + filename);
       }
     } catch (final SftpException e) {
@@ -116,6 +123,28 @@ public class JschSftpTransfertLayer implements ISftpTransfertLayer {
     }
 
     return res;
+  }
+
+  private List<LsEntry> lsCache(final String remotePath) throws SftpException {
+    final String replace = remotePath.replace("//", "/");
+    final boolean containsKey = this.remotePathToLsEntryCache.containsKey(replace);
+    List<LsEntry> res;
+    if (containsKey) {
+      res = this.remotePathToLsEntryCache.get(replace);
+    } else {
+      @SuppressWarnings("unchecked")
+      final ArrayList<LsEntry> arrayList = new ArrayList<LsEntry>(this.mainSftpChannel.ls(remotePath));
+      res = arrayList;
+      this.remotePathToLsEntryCache.put(replace, res);
+    }
+    return res;
+  }
+
+  private void populateAttributesCache(final String dirPath, final LsEntry fileEntry) {
+    final String filename = fileEntry.getFilename();
+    final String fullRemotePath = (dirPath + "/" + filename).replace("//", "/");
+    final SftpATTRS attrs = fileEntry.getAttrs();
+    this.remotePathToAttributesCache.put(fullRemotePath, attrs);
   }
 
   @Override
