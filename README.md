@@ -90,7 +90,7 @@ Installing a jar in the local repository is done during an execution of the `mav
 </execution>
 ```
 
-Every `<id>` should be unique. The goal is always `install-file`. Other fields of the configuration part are obvious.
+Every `<id>` should be unique. The goal is always `install-file`. Fields of the configuration part can be set as pleased. However make sure that the file points to an existing file, and that other fields match with the `<artifact>` [declaration](#declare-a-dependency).
 
 ### Generate the P2 Repository
 
