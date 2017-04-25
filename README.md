@@ -69,7 +69,7 @@ Not everything is available on Maven repositories. For instance, I could not fin
 
 The solution here consists in manually installing a jar in the local repository at an early stage, and letting the `p2-maven-plugin` plug-in find it later locally, without needing to lookup in distant repositories.
 
-This is done in the POM file with the `maven-install-plugin` that is invoked during the `initialize` phase, that is before the `p2-maven-plugin` plug-in that is invoked during the `compile` phase (see [Maven Build Lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)).
+This is done in the POM file with the `maven-install-plugin` invoked during the `initialize` phase, that is before the `p2-maven-plugin` plug-in invoked during the `compile` phase (see [Maven Build Lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)).
 
 Installing a jar in the local repository is done during an execution of the `maven-install-plugin` :
 
