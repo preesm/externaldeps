@@ -104,7 +104,11 @@ In order to install all OSGi bundle at once, the [genfeature-maven-plugin](https
 
 The final update site is hosted on SourceForge (see [Preesm update site](http://preesm.sourceforge.net/eclipse/update-site/)). In order to keep this update site consistent, we must generate a 3rd update site that mirrors the online one, and merge it with the generated featured one. This is done using the `mirror` goal of the `tycho-p2-extras-plugin` plug-in.
 
-The upload itself is done using the [sftp-maven-plugin](https://github.com/preesm/sftp-maven-plugin).
+The upload itself is done using the [sftp-maven-plugin](https://github.com/preesm/sftp-maven-plugin). Make sure to have a server with `<id>sf-preesm-update-site</id>` properly setup in your [Maven settings](https://maven.apache.org/settings.html#Servers).
+
+## Changelog
+
+See [release notes](release_notes.md).
 
 ## Contacts
 
