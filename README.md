@@ -20,6 +20,8 @@ This simple maven configuration file does the job in 3 steps:
  - Run `mvn clean package` to build the update site;
  - If your [Maven settings](https://maven.apache.org/settings.html#Servers) are correctly configured, run `mvn clean deploy` to update the online update site.
 
+To update version, use `mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=X.Y.Z`
+
 ## Details
 
 Everything is controlled from the [Project Object Model file](pom.xml) (Maven configuration). The following sections detail how to understand, tune, refactor, or extend this POM file,
