@@ -5,7 +5,7 @@
 	<groupId>org.ietr.externaldeps</groupId>
 	<artifactId>org.ietr.externaldeps.site</artifactId>
 	<packaging>pom</packaging>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 
 	<properties>
 		<tycho-version>1.0.0</tycho-version>
@@ -20,7 +20,7 @@
 			<id>reficio</id>
 			<url>http://repo.reficio.org/maven/</url>
 		</pluginRepository>
-		
+
 		<pluginRepository>
 			<id>preesm</id>
 			<url>http://preesm.sourceforge.net/maven/</url>
@@ -49,15 +49,15 @@
 			<id>OpenNMS</id>
 			<url>http://repo.opennms.org/maven2/</url>
 		</repository>
-		
+
 		<repository>
 			<id>Boundless Repository</id>
 			<url>https://repo.boundlessgeo.com/main/</url>
 		</repository>
-		
+
 	</repositories>
 
-	
+
 	<build>
 		<plugins>
 			<!-- Disable maven deploy plugin: since generated artifacts will be deployed
@@ -71,7 +71,7 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			
+
 			<!-- This plugin is in charge install local jars as maven artifacts. -->
 			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -94,7 +94,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- This plugin is in charge of fetching the maven dependencies, converting
 				them to OSGi bundles, and generating the P2 repo (update site). Bound to
 				'package' phase -->
@@ -123,7 +123,7 @@
 									<id>org.beanshell:bsh:jar:2.1.8</id>
 									<source>true</source>
 								</artifact>
-								
+
 								<!-- ############# -->
 								<!-- Maven Central -->
 								<!-- ############# -->
@@ -142,11 +142,6 @@
 									<source>true</source>
 								</artifact>
 
-								<artifact>
-									<id>org.solovyev:jscl:jar:1.0.11</id>
-									<source>true</source>
-								</artifact>
-								
 								<artifact>
 									<id>jfree:jcommon:jar:1.0.16</id>
 									<source>true</source>
@@ -196,7 +191,7 @@
 									<id>org.gnu.glpk:glpk-java:1.0.32</id>
 									<source>true</source>
 								</artifact>
-								
+
 								<!-- ####### -->
 								<!-- OpenNMS -->
 								<!-- ####### -->
@@ -204,19 +199,19 @@
 									<id>jep:jep:jar:2.40</id>
 									<source>true</source>
 								</artifact>
-								
+
 							</artifacts>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			
-			
+
+
 			<!-- ############################################### -->
 			<!-- /!\ Editing further should not be necessary /!\ -->
 			<!-- ############################################### -->
 
-			<!-- Custom plugin to generate a feature from the previously generated P2 
+			<!-- Custom plugin to generate a feature from the previously generated P2
 				repository, and generate a second repository for this feature.-->
 			<plugin>
 				<groupId>org.ietr.maven</groupId>
@@ -235,15 +230,15 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-			
+
+
 			<!--
 				This plugin will fetch all features and plugins
-				from the online compliete Preesm update site (URL defined in the 
+				from the online compliete Preesm update site (URL defined in the
 				parent POM). This will be executed after packaging the
 				update site for the current release. It will merge the
-				features and plugins from the online update site and 
-				the ones generated for the current release, in 
+				features and plugins from the online update site and
+				the ones generated for the current release, in
 				${project.build.directory}/gensite/update-site/complete.
 				-->
 			<plugin>
@@ -270,7 +265,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.ietr.maven</groupId>
 				<artifactId>sftp-maven-plugin</artifactId>
@@ -315,7 +310,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 
