@@ -1,368 +1,342 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.ietr.externaldeps</groupId>
-	<artifactId>org.ietr.externaldeps.site</artifactId>
-	<packaging>pom</packaging>
-	<version>1.2.0</version>
+  <groupId>org.ietr.externaldeps</groupId>
+  <artifactId>org.ietr.externaldeps.site</artifactId>
+  <packaging>pom</packaging>
+  <version>1.2.0</version>
 
-	<properties>
-		<tycho-version>1.0.0</tycho-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- can be changed to a local repo using an URI like file:///path/to/repo
-			Note: plain paths like '/path/to/repo' without file:// will not work -->
-		<complete.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</complete.p2.repo>
-	</properties>
+  <properties>
+    <tycho-version>1.0.0</tycho-version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- can be changed to a local repo using an URI like file:///path/to/repo
+      Note: plain paths like '/path/to/repo' without file:// will not work -->
+    <complete.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</complete.p2.repo>
+  </properties>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>reficio</id>
-			<url>http://repo.reficio.org/maven/</url>
-		</pluginRepository>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>reficio</id>
+      <url>http://repo.reficio.org/maven/</url>
+    </pluginRepository>
 
-		<pluginRepository>
-			<id>preesm</id>
-			<url>http://preesm.sourceforge.net/maven/</url>
-		</pluginRepository>
-	</pluginRepositories>
+    <pluginRepository>
+      <id>preesm</id>
+      <url>http://preesm.sourceforge.net/maven/</url>
+    </pluginRepository>
+  </pluginRepositories>
 
-	<!-- Use this section to declare new maven repository (where the third party
-		libraries are) -->
-	<repositories>
-		<repository>
-			<id>Maven Central</id>
-			<url>http://central.maven.org/maven2/</url>
-		</repository>
+  <!-- Use this section to declare new maven repository (where the third
+    party libraries are) -->
+  <repositories>
+    <repository>
+      <id>Maven Central</id>
+      <url>http://central.maven.org/maven2/</url>
+    </repository>
 
-		<repository>
-			<id>clojars.org</id>
-			<url>http://clojars.org/repo</url>
-		</repository>
+    <repository>
+      <id>clojars.org</id>
+      <url>http://clojars.org/repo</url>
+    </repository>
 
-		<repository>
-			<id>XypronRelease</id>
-			<url>https://www.xypron.de/repository</url>
-		</repository>
+    <repository>
+      <id>XypronRelease</id>
+      <url>https://www.xypron.de/repository</url>
+    </repository>
 
-		<repository>
-			<id>OpenNMS</id>
-			<url>http://repo.opennms.org/maven2/</url>
-		</repository>
+    <repository>
+      <id>OpenNMS</id>
+      <url>http://repo.opennms.org/maven2/</url>
+    </repository>
 
-		<repository>
-			<id>Boundless Repository</id>
-			<url>https://repo.boundlessgeo.com/main/</url>
-		</repository>
+    <repository>
+      <id>Boundless Repository</id>
+      <url>https://repo.boundlessgeo.com/main/</url>
+    </repository>
 
-	</repositories>
-
-
-	<build>
-		<plugins>
-			<!-- Disable maven deploy plugin: since generated artifacts will be deployed
-				in a P2 repository, there is no need to deploy them in an artifactory/nexus
-				repo. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.2</version>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-
-			<!-- This plugin is in charge install local jars as maven artifacts. -->
-			 <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>2.5.2</version>
-				<executions>
-					<execution>
-						<id>install-bsh218</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<configuration>
-							<file>${project.basedir}/lib/bsh-2.1.8.jar</file>
-							<groupId>org.beanshell</groupId>
-							<artifactId>bsh</artifactId>
-							<version>2.1.8</version>
-							<packaging>jar</packaging>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- This plugin is in charge of fetching the maven dependencies, converting
-				them to OSGi bundles, and generating the P2 repo (update site). Bound to
-				'package' phase -->
-			<plugin>
-				<groupId>org.reficio</groupId>
-				<artifactId>p2-maven-plugin</artifactId>
-				<version>1.2.0</version>
-				<executions>
-					<execution>
-						<id>default-cli</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>site</goal>
-						</goals>
-
-						<configuration>
-							<compressSite>false</compressSite>
-							<!-- Specify a path, not an URL (see https://github.com/reficio/p2-maven-plugin/issues/107) -->
-							<categoryFileURL>${basedir}/category.xml</categoryFileURL>
-							<artifacts>
-
-								<!-- ########## -->
-								<!-- local jars -->
-								<!-- ########## -->
-								<artifact>
-									<id>org.beanshell:bsh:jar:2.1.8</id>
-									<source>true</source>
-								</artifact>
-
-								<!-- ############# -->
-								<!-- Maven Central -->
-								<!-- ############# -->
-								<artifact>
-									<id>jgraph:jgraph:jar:5.13.0.0</id>
-									<source>true</source>
-								</artifact>
-
-								<artifact>
-									<id>net.sourceforge.jexcelapi:jxl:jar:2.6.10</id>
-									<source>true</source>
-								</artifact>
-
-								<artifact>
-									<id>com.github.yannrichet:JMathArray:jar:1.0</id>
-									<source>true</source>
-								</artifact>
-
-								<artifact>
-									<id>jfree:jcommon:jar:1.0.16</id>
-									<source>true</source>
-								</artifact>
-								<artifact>
-									<id>jfree:jfreechart:jar:1.0.13</id>
-									<source>true</source>
-								</artifact>
-								<artifact>
-									<id>org.jacorb:jacorb-idl-compiler:jar:2.3.1</id>
-									<source>true</source>
-								</artifact>
-
-								<artifact>
-									<id>org.mockito:mockito-all:jar:1.10.19</id>
-									<source>true</source>
-								</artifact>
-								<artifact>
-									<id>org.apache.commons:commons-collections4:jar:4.1</id>
-									<source>true</source>
-								</artifact>
-								<artifact>
-									<id>org.apache.commons:commons-math3:jar:3.6.1</id>
-									<source>true</source>
-								</artifact>
-								<artifact>
-									<id>org.apache.commons:commons-io:jar:1.3.2</id>
-									<source>true</source>
-								</artifact>
-								<artifact>
-									<id>org.apache.commons:commons-lang3:jar:3.5</id>
-									<source>true</source>
-								</artifact>
-
-								<!-- ########### -->
-								<!-- clojars.org -->
-								<!-- ########### -->
-								<artifact>
-									<id>org.clojars.gilesc:jgrapht:jar:0.8.2</id>
-									<source>true</source>
-								</artifact>
-
-								<!-- ############# -->
-								<!-- XypronRelease -->
-								<!-- ############# -->
-								<artifact>
-									<id>org.gnu.glpk:glpk-java:1.0.32</id>
-									<source>true</source>
-								</artifact>
-
-								<!-- ####### -->
-								<!-- OpenNMS -->
-								<!-- ####### -->
-								<artifact>
-									<id>jep:jep:jar:2.40</id>
-									<source>true</source>
-								</artifact>
-
-							</artifacts>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+  </repositories>
 
 
-			<!-- ############################################### -->
-			<!-- /!\ Editing further should not be necessary /!\ -->
-			<!-- ############################################### -->
+  <build>
+    <plugins>
+      <!-- Disable maven deploy plugin: since generated artifacts will be
+        deployed in a P2 repository, there is no need to deploy them in an artifactory/nexus
+        repo. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
 
-			<!-- Custom plugin to generate a feature from the previously generated P2
-				repository, and generate a second repository for this feature.-->
-			<plugin>
-				<groupId>org.ietr.maven</groupId>
-				<artifactId>genfeature-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>generate-feature</goal>
-						</goals>
-						<configuration>
-							<featureProvider>IETR/INSA Rennes</featureProvider>
-							<outputDirectory>${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- Ant Task to create a symlink to the latest version -->
-			<!-- ## NOTE: make sure this is after the tycho-p2-extras-plugin in the pom.xml text -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>latest-symlink</id>
-						<phase>package</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<target name="Create Symlink for latest release">
-								<symlink link="${project.build.directory}/gensite/update-site/${project.groupId}-latest" resource="${project.groupId}-${project.version}"/>
-							</target>
-							<exportAntProperties>true</exportAntProperties>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+      <!-- This plugin is in charge install local jars as maven artifacts. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.2</version>
+        <executions>
+          <execution>
+            <id>install-bsh218</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>${project.basedir}/lib/bsh-2.1.8.jar</file>
+              <groupId>org.beanshell</groupId>
+              <artifactId>bsh</artifactId>
+              <version>2.1.8</version>
+              <packaging>jar</packaging>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
-			
-			<plugin>
-			  <groupId>com.googlecode.maven-download-plugin</groupId>
-			  <artifactId>download-maven-plugin</artifactId>
-  			  <version>1.3.0</version>
-			  <executions>
-				<execution>
-				  <phase>deploy</phase>
-				  <id>fetch-artifacts.xml</id>
-				  <goals>
-					<goal>wget</goal>
-				  </goals>
-				  <configuration>
-					<url>${complete.p2.repo}/artifacts.xml</url>
-					<outputFileName>artifacts.xml</outputFileName>
-					<outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>
-				  </configuration>
-				</execution>
-				<execution>
-				  <phase>deploy</phase>
-				  <id>fetch-content.xml</id>
-				  <goals>
-					<goal>wget</goal>
-				  </goals>
-				  <configuration>
-					<url>${complete.p2.repo}/content.xml</url>
-					<outputFileName>content.xml</outputFileName>
-					<outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>
-				  </configuration>
-				</execution>
-			  </executions>
-			</plugin>
-			<!--
-				This plugin will fetch all features and plugins
-				from the online compliete Preesm update site (URL defined in the
-				parent POM). This will be executed after packaging the
-				update site for the current release. It will merge the
-				features and plugins from the online update site and
-				the ones generated for the current release, in
-				${project.build.directory}/gensite/update-site/complete.
-				-->
-			<plugin>
-				<groupId>org.eclipse.tycho.extras</groupId>
-				<artifactId>tycho-p2-extras-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
-					<!-- First fetch content metadata of the online repo 
-					<execution>
-						<id>copy-online-repo</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>mirror</goal>
-						</goals>
-						<configuration>
-							<source>
-								<repository><url>${complete.p2.repo}</url></repository>
-							</source>
-							<append>false</append>
-							<compress>false</compress>
-							<includeOptional>true</includeOptional>
-							<mirrorMetadataOnly>true</mirrorMetadataOnly>
-							<destination>${project.build.directory}/gensite/update-site/complete</destination>
-						</configuration>
-					</execution>-->
-					<!-- Then append metadata AND content of the current build  -->
-					<execution>
-						<id>append-current-build</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>mirror</goal>
-						</goals>
-						<configuration>
-							<source>
-								<repository><url>${project.baseUri}/target/gensite/update-site/${project.groupId}-${project.version}</url></repository>
-							</source>
-							<append>true</append>
-							<compress>false</compress>
-							<includeOptional>true</includeOptional>
-							<destination>${project.build.directory}/gensite/update-site/complete</destination>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+      <!-- This plugin is in charge of fetching the maven dependencies, converting
+        them to OSGi bundles, and generating the P2 repo (update site). Bound to
+        'package' phase -->
+      <plugin>
+        <groupId>org.reficio</groupId>
+        <artifactId>p2-maven-plugin</artifactId>
+        <version>1.2.0</version>
+        <executions>
+          <execution>
+            <id>default-cli</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>site</goal>
+            </goals>
 
-			<!-- Finally upload merged metadata and new content  -->
-			<plugin>
-				<groupId>org.ietr.maven</groupId>
-				<artifactId>sftp-maven-plugin</artifactId>
-				<version>2.0.2</version>
-				<executions>
-					<execution>
-						<id>upload-repo</id>
-						<phase>deploy</phase>
-						<configuration>
-							<serverId>sf-preesm-update-site</serverId>
-							<serverHost>web.sourceforge.net</serverHost>
-							<strictHostKeyChecking>false</strictHostKeyChecking>
-							<mode>send</mode>
-							<remotePath>/home/project-web/preesm/htdocs/gensite/</remotePath>
-							<localPath>${project.build.directory}/gensite/</localPath>
-						</configuration>
-						<goals>
-							<goal>sftp-transfert</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+            <configuration>
+              <compressSite>false</compressSite>
+              <!-- Specify a path, not an URL (see https://github.com/reficio/p2-maven-plugin/issues/107) -->
+              <categoryFileURL>${basedir}/category.xml</categoryFileURL>
+              <artifacts>
 
-		</plugins>
-	</build>
+                <!-- ########## -->
+                <!-- local jars -->
+                <!-- ########## -->
+                <artifact>
+                  <id>org.beanshell:bsh:jar:2.1.8</id>
+                  <source>true</source>
+                </artifact>
+
+                <!-- ############# -->
+                <!-- Maven Central -->
+                <!-- ############# -->
+                <artifact>
+                  <id>jgraph:jgraph:jar:5.13.0.0</id>
+                  <source>true</source>
+                </artifact>
+
+                <artifact>
+                  <id>net.sourceforge.jexcelapi:jxl:jar:2.6.10</id>
+                  <source>true</source>
+                </artifact>
+
+                <artifact>
+                  <id>com.github.yannrichet:JMathArray:jar:1.0</id>
+                  <source>true</source>
+                </artifact>
+
+                <artifact>
+                  <id>jfree:jcommon:jar:1.0.16</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <id>jfree:jfreechart:jar:1.0.13</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <id>org.jacorb:jacorb-idl-compiler:jar:2.3.1</id>
+                  <source>true</source>
+                </artifact>
+
+                <artifact>
+                  <id>org.mockito:mockito-all:jar:1.10.19</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <id>org.apache.commons:commons-collections4:jar:4.1</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <id>org.apache.commons:commons-math3:jar:3.6.1</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <id>org.apache.commons:commons-io:jar:1.3.2</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <id>org.apache.commons:commons-lang3:jar:3.5</id>
+                  <source>true</source>
+                </artifact>
+
+                <!-- ########### -->
+                <!-- clojars.org -->
+                <!-- ########### -->
+                <artifact>
+                  <id>org.clojars.gilesc:jgrapht:jar:0.8.2</id>
+                  <source>true</source>
+                </artifact>
+
+                <!-- ############# -->
+                <!-- XypronRelease -->
+                <!-- ############# -->
+                <artifact>
+                  <id>org.gnu.glpk:glpk-java:1.0.32</id>
+                  <source>true</source>
+                </artifact>
+
+                <!-- ####### -->
+                <!-- OpenNMS -->
+                <!-- ####### -->
+                <artifact>
+                  <id>jep:jep:jar:2.40</id>
+                  <source>true</source>
+                </artifact>
+
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
 
+      <!-- ############################################### -->
+      <!-- /!\ Editing further should not be necessary /!\ -->
+      <!-- ############################################### -->
+
+      <!-- Custom plugin to generate a feature from the previously generated
+        P2 repository, and generate a second repository for this feature. -->
+      <plugin>
+        <groupId>org.ietr.maven</groupId>
+        <artifactId>genfeature-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>generate-feature</goal>
+            </goals>
+            <configuration>
+              <featureProvider>IETR/INSA Rennes</featureProvider>
+              <outputDirectory>${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Ant Task to create a symlink to the latest version -->
+      <!-- ## NOTE: make sure this is after the tycho-p2-extras-plugin in
+        the pom.xml text -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>latest-symlink</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="Create Symlink for latest release">
+                <symlink
+                  link="${project.build.directory}/gensite/update-site/${project.groupId}-latest"
+                  resource="${project.groupId}-${project.version}" />
+              </target>
+              <exportAntProperties>true</exportAntProperties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.googlecode.maven-download-plugin</groupId>
+        <artifactId>download-maven-plugin</artifactId>
+        <version>1.3.0</version>
+        <executions>
+          <execution>
+            <phase>deploy</phase>
+            <id>fetch-artifacts.xml</id>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>${complete.p2.repo}/artifacts.xml</url>
+              <outputFileName>artifacts.xml</outputFileName>
+              <outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <phase>deploy</phase>
+            <id>fetch-content.xml</id>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>${complete.p2.repo}/content.xml</url>
+              <outputFileName>content.xml</outputFileName>
+              <outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.tycho.extras</groupId>
+        <artifactId>tycho-p2-extras-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <executions>
+          <execution>
+            <id>append-current-build</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+            <configuration>
+              <source>
+                <repository>
+                  <url>${project.baseUri}/target/gensite/update-site/${project.groupId}-${project.version}</url>
+                </repository>
+              </source>
+              <append>true</append>
+              <compress>false</compress>
+              <includeOptional>true</includeOptional>
+              <destination>${project.build.directory}/gensite/update-site/complete</destination>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Finally upload merged metadata and new content -->
+      <plugin>
+        <groupId>org.ietr.maven</groupId>
+        <artifactId>sftp-maven-plugin</artifactId>
+        <version>2.0.2</version>
+        <executions>
+          <execution>
+            <id>upload-repo</id>
+            <phase>deploy</phase>
+            <configuration>
+              <serverId>sf-preesm-update-site</serverId>
+              <serverHost>web.sourceforge.net</serverHost>
+              <strictHostKeyChecking>false</strictHostKeyChecking>
+              <mode>send</mode>
+              <remotePath>/home/project-web/preesm/htdocs/gensite/</remotePath>
+              <localPath>${project.build.directory}/gensite/</localPath>
+            </configuration>
+            <goals>
+              <goal>sftp-transfert</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
