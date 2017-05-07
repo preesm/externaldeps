@@ -5,7 +5,7 @@
   <groupId>org.ietr.externaldeps</groupId>
   <artifactId>org.ietr.externaldeps.site</artifactId>
   <packaging>pom</packaging>
-  <version>1.2.0</version>
+  <version>1.2.1</version>
 
   <properties>
     <tycho-version>1.0.0</tycho-version>
@@ -139,6 +139,11 @@
 
                 <artifact>
                   <id>com.github.yannrichet:JMathArray:jar:1.0</id>
+                  <source>true</source>
+                </artifact>
+
+                <artifact>
+                  <id>net.sf.saxon:Saxon-HE:9.7.0-18</id>
                   <source>true</source>
                 </artifact>
 
