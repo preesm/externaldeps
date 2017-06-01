@@ -85,6 +85,7 @@
               <goal>install-file</goal>
             </goals>
             <configuration>
+              <!-- fetched from https://github.com/pejobo/beanshell2/tree/v2.1/downloads -->
               <file>${project.basedir}/lib/bsh-2.1.8.jar</file>
               <groupId>org.beanshell</groupId>
               <artifactId>bsh</artifactId>
@@ -120,6 +121,7 @@
                 <!-- local jars -->
                 <!-- ########## -->
                 <artifact>
+                  <!-- GPL V3 : https://github.com/pejobo/beanshell2/blob/master/src/License.txt -->
                   <id>org.beanshell:bsh:jar:2.1.8</id>
                   <source>true</source>
                 </artifact>
@@ -128,55 +130,68 @@
                 <!-- Maven Central -->
                 <!-- ############# -->
                 <artifact>
+                  <!-- BSD -->
                   <id>jgraph:jgraph:jar:5.13.0.0</id>
                   <source>true</source>
                 </artifact>
 
                 <artifact>
+                  <!-- LGPL : https://opensource.org/licenses/lgpl-license.php -->
                   <id>net.sourceforge.jexcelapi:jxl:jar:2.6.10</id>
                   <source>true</source>
                 </artifact>
 
                 <artifact>
+                  <!-- BSD -->
                   <id>com.github.yannrichet:JMathArray:jar:1.0</id>
                   <source>true</source>
                 </artifact>
 
                 <artifact>
+                  <!-- MPL : https://www.mozilla.org/en-US/MPL/2.0/ -->
                   <id>net.sf.saxon:Saxon-HE:9.7.0-18</id>
                   <source>true</source>
                 </artifact>
 
                 <artifact>
+                  <!-- LGPL : https://www.gnu.org/licenses/lgpl.txt -->
                   <id>jfree:jcommon:jar:1.0.16</id>
                   <source>true</source>
                 </artifact>
                 <artifact>
+                  <!-- LGPL : https://www.gnu.org/licenses/lgpl.txt -->
                   <id>jfree:jfreechart:jar:1.0.13</id>
                   <source>true</source>
                 </artifact>
+
                 <artifact>
+                  <!-- LGPL V2 : http://www.gnu.org/copyleft/lesser.html  -->
                   <id>org.jacorb:jacorb-idl-compiler:jar:2.3.1</id>
                   <source>true</source>
                 </artifact>
 
                 <artifact>
+                  <!-- MIT : https://github.com/mockito/mockito/blob/master/LICENSE  -->
                   <id>org.mockito:mockito-all:jar:1.10.19</id>
                   <source>true</source>
                 </artifact>
                 <artifact>
+                  <!-- Apache 2.0 : http://www.apache.org/licenses/LICENSE-2.0.txt  -->
                   <id>org.apache.commons:commons-collections4:jar:4.1</id>
                   <source>true</source>
                 </artifact>
                 <artifact>
+                  <!-- Apache 2.0 : http://www.apache.org/licenses/LICENSE-2.0.txt  -->
                   <id>org.apache.commons:commons-math3:jar:3.6.1</id>
                   <source>true</source>
                 </artifact>
                 <artifact>
+                  <!-- Apache 2.0 : http://www.apache.org/licenses/LICENSE-2.0.txt  -->
                   <id>org.apache.commons:commons-io:jar:1.3.2</id>
                   <source>true</source>
                 </artifact>
                 <artifact>
+                  <!-- Apache 2.0 : http://www.apache.org/licenses/LICENSE-2.0.txt  -->
                   <id>org.apache.commons:commons-lang3:jar:3.5</id>
                   <source>true</source>
                 </artifact>
@@ -185,6 +200,7 @@
                 <!-- clojars.org -->
                 <!-- ########### -->
                 <artifact>
+                  <!-- LGPL V2.1+ -->
                   <id>org.clojars.gilesc:jgrapht:jar:0.8.2</id>
                   <source>true</source>
                 </artifact>
@@ -193,6 +209,7 @@
                 <!-- XypronRelease -->
                 <!-- ############# -->
                 <artifact>
+                  <!-- GPL 3 -->
                   <id>org.gnu.glpk:glpk-java:1.0.32</id>
                   <source>true</source>
                 </artifact>
@@ -201,6 +218,7 @@
                 <!-- OpenNMS -->
                 <!-- ####### -->
                 <artifact>
+                  <!-- GPL 3 -->
                   <id>jep:jep:jar:2.40</id>
                   <source>true</source>
                 </artifact>
