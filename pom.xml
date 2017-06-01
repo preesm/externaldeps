@@ -205,6 +205,14 @@
                   <source>true</source>
                 </artifact>
 
+                <!-- <artifact>
+                  <id>org.clojars.gilesc:jgrapht:jar:0.8.2</id>
+                  <source>true</source>
+                  <instructions>
+                    <Bundle-SymbolicName>org.jgrapht</Bundle-SymbolicName>
+                  </instructions>
+                </artifact> -->
+
                 <!-- ############# -->
                 <!-- XypronRelease -->
                 <!-- ############# -->

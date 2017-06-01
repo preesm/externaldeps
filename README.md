@@ -50,6 +50,20 @@ The *groupId*, *artifactId* and *version* should be copied from a Maven reposito
 
 Note: The source option should be enabled always. The dependency resolver will not crash in case it does not find the source bundle.
 
+It is possible to rename the bundle name of the dependency by giving some instructions:
+
+```xml
+<artifact>
+	<id>groupID:artifactID:jar:X.Y.Z</id>
+	<source>true</source>
+	<instructions>
+		<Bundle-SymbolicName>my.new.name</Bundle-SymbolicName>
+	</instructions>
+</artifact>
+```
+
+**Note:** An artifact can not live multiple times with different names in the repository.
+
 #### Declare a new Maven Repository
 
 The Maven artifact search engines results mostly points to artifacts hosted on the [Maven Central repository](http://repo1.maven.org/maven2/), which is included by default (see line 10 of [the default super POM](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html#Super_POM)). However, one may want to add dependencies to artifacts hosted on other repositories.
