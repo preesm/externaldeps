@@ -10,9 +10,8 @@
   <properties>
     <tycho-version>1.0.0</tycho-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- can be changed to a local repo using an URI like file:///path/to/repo
-      Note: plain paths like '/path/to/repo' without file:// will not work -->
-    <complete.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</complete.p2.repo>
+    <preesm.maven.repo>https://preesm.github.io/preesm-maven/mavenrepo/</preesm.maven.repo>
+    <preesm.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</preesm.p2.repo>
   </properties>
 
   <pluginRepositories>
@@ -23,7 +22,7 @@
 
     <pluginRepository>
       <id>preesm</id>
-      <url>http://preesm.sourceforge.net/maven/</url>
+      <url>${preesm.maven.repo}</url>
     </pluginRepository>
   </pluginRepositories>
 
@@ -300,7 +299,7 @@
             </goals>
             <configuration>
               <skipCache>true</skipCache>
-              <url>${complete.p2.repo}/artifacts.xml</url>
+              <url>${preesm.p2.repo}/artifacts.xml</url>
               <outputFileName>artifacts.xml</outputFileName>
               <outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>
             </configuration>
@@ -313,7 +312,7 @@
             </goals>
             <configuration>
               <skipCache>true</skipCache>
-              <url>${complete.p2.repo}/content.xml</url>
+              <url>${preesm.p2.repo}/content.xml</url>
               <outputFileName>content.xml</outputFileName>
               <outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>
             </configuration>
