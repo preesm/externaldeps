@@ -1,6 +1,13 @@
 ExternalDeps Changelog
 ======================
 
+## Release version 1.3.0
+*2017.11.14*
+
+### New Feature
+ * Add ojAlgo
+
+
 ## Release version 1.2.0
 *2017.04.26*
 
