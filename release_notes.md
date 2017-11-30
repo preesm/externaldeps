@@ -1,6 +1,12 @@
 ExternalDeps Changelog
 ======================
 
+## Release version 1.4.0
+*2017.11.30*
+
+### New Feature
+ * Add mockito core
+
 ## Release version 1.3.0
 *2017.11.14*
 

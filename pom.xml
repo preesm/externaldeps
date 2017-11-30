@@ -5,7 +5,7 @@
   <groupId>org.ietr.externaldeps</groupId>
   <artifactId>org.ietr.externaldeps.site</artifactId>
   <packaging>pom</packaging>
-  <version>1.3.0</version>
+  <version>1.4.0</version>
 
   <properties>
     <tycho-version>1.0.0</tycho-version>
