@@ -177,6 +177,11 @@
 
                 <artifact>
                   <!-- MIT : https://github.com/mockito/mockito/blob/master/LICENSE  -->
+                  <id>org.mockito:mockito-core:jar:2.12.0</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <!-- MIT : https://github.com/mockito/mockito/blob/master/LICENSE  -->
                   <id>org.mockito:mockito-all:jar:1.10.19</id>
                   <source>true</source>
                 </artifact>
