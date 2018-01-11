@@ -19,11 +19,6 @@
       <id>reficio</id>
       <url>http://repo.reficio.org/maven/</url>
     </pluginRepository>
-
-    <pluginRepository>
-      <id>preesm</id>
-      <url>${preesm.maven.repo}</url>
-    </pluginRepository>
   </pluginRepositories>
 
   <!-- Use this section to declare new maven repository (where the third
@@ -255,9 +250,9 @@
       <!-- Custom plugin to generate a feature from the previously generated
         P2 repository, and generate a second repository for this feature. -->
       <plugin>
-        <groupId>org.ietr.maven</groupId>
+        <groupId>org.preesm.maven</groupId>
         <artifactId>genfeature-maven-plugin</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.0</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -359,9 +354,9 @@
 
       <!-- Finally upload merged metadata and new content -->
       <plugin>
-        <groupId>org.ietr.maven</groupId>
+        <groupId>org.preesm.maven</groupId>
         <artifactId>sftp-maven-plugin</artifactId>
-        <version>2.1.0</version>
+        <version>1.0.0</version>
         <executions>
           <execution>
             <id>upload-repo</id>
