@@ -1,6 +1,12 @@
 ExternalDeps Changelog
 ======================
 
+## Release version 1.4.1
+*2018.01.31*
+
+### New Feature
+ * Add choco solver 4.0.6
+
 ## Release version 1.4.0
 *2017.11.30*
 
@@ -12,7 +18,6 @@ ExternalDeps Changelog
 
 ### New Feature
  * Add ojAlgo
-
 
 ## Release version 1.2.0
 *2017.04.26*
