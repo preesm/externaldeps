@@ -212,7 +212,17 @@
                 <!-- ########### -->
                 <artifact>
                   <!-- LGPL V2.1+ -->
-                  <id>org.clojars.gilesc:jgrapht:jar:0.8.2</id>
+                  <id>org.jgrapht:jgrapht-core:jar:1.1.0</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <!-- LGPL V2.1+ -->
+                  <id>org.jgrapht:jgrapht-demo:jar:1.1.0</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <!-- LGPL V2.1+ -->
+                  <id>org.jgrapht:jgrapht-ext:jar:1.1.0</id>
                   <source>true</source>
                 </artifact>
 
