@@ -5,7 +5,7 @@
   <groupId>org.ietr.externaldeps</groupId>
   <artifactId>org.ietr.externaldeps.site</artifactId>
   <packaging>pom</packaging>
-  <version>1.4.1</version>
+  <version>2.0.0</version>
 
   <properties>
     <tycho-version>1.0.0</tycho-version>
@@ -27,11 +27,6 @@
     <repository>
       <id>Maven Central</id>
       <url>http://central.maven.org/maven2/</url>
-    </repository>
-
-    <repository>
-      <id>clojars.org</id>
-      <url>http://clojars.org/repo</url>
     </repository>
 
     <repository>
@@ -96,7 +91,7 @@
       <plugin>
         <groupId>org.reficio</groupId>
         <artifactId>p2-maven-plugin</artifactId>
-        <version>1.2.0</version>
+        <version>1.3.0</version>
         <executions>
           <execution>
             <id>default-cli</id>
@@ -136,7 +131,13 @@
                 </artifact>
 
                 <artifact>
-                  <!-- BSD -->
+                  <!-- LGPL 2.1+ -->
+                  <id>org.jgrapht:jgrapht-core:jar:1.1.0</id>
+                  <source>true</source>
+                </artifact>
+
+                <!-- BSD -->
+                <artifact>
                   <id>org.choco-solver:choco-solver:jar:4.0.6</id>
                   <source>true</source>
                 </artifact>
@@ -206,33 +207,6 @@
                   <id>org.apache.commons:commons-lang3:jar:3.5</id>
                   <source>true</source>
                 </artifact>
-
-                <!-- ########### -->
-                <!-- clojars.org -->
-                <!-- ########### -->
-                <artifact>
-                  <!-- LGPL V2.1+ -->
-                  <id>org.jgrapht:jgrapht-core:jar:1.1.0</id>
-                  <source>true</source>
-                </artifact>
-                <artifact>
-                  <!-- LGPL V2.1+ -->
-                  <id>org.jgrapht:jgrapht-demo:jar:1.1.0</id>
-                  <source>true</source>
-                </artifact>
-                <artifact>
-                  <!-- LGPL V2.1+ -->
-                  <id>org.jgrapht:jgrapht-ext:jar:1.1.0</id>
-                  <source>true</source>
-                </artifact>
-
-                <!-- <artifact>
-                  <id>org.clojars.gilesc:jgrapht:jar:0.8.2</id>
-                  <source>true</source>
-                  <instructions>
-                    <Bundle-SymbolicName>org.jgrapht</Bundle-SymbolicName>
-                  </instructions>
-                </artifact> -->
 
                 <!-- ############# -->
                 <!-- XypronRelease -->
