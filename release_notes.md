@@ -1,6 +1,15 @@
 ExternalDeps Changelog
 ======================
 
+## Release version 2.0.0
+*2018.02.XX*
+ 
+### Changes
+ * Upate JGrapht to 1.1.0
+ * Update p2-maven-plugin to 1.3.0
+ * Move to 2.0.0
+ * Disable clojars.org repo
+
 ## Release version 1.4.1
 *2018.01.31*
 
