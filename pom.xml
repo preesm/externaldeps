@@ -200,15 +200,6 @@
                   <source>true</source>
                 </artifact>
 
-                <!-- ############# -->
-                <!-- XypronRelease -->
-                <!-- ############# -->
-                <artifact>
-                  <!-- GPL 3 -->
-                  <id>org.gnu.glpk:glpk-java:1.0.32</id>
-                  <source>true</source>
-                </artifact>
-
                 <!-- ####### -->
                 <!-- OpenNMS -->
                 <!-- ####### -->
