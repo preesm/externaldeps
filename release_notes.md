@@ -1,9 +1,22 @@
 ExternalDeps Changelog
 ======================
 
+## Release version 3.0.0
+*2018.03.29*
+
+### Changes Feature
+ * Remove parsington 1.0.1: its capacity to evaluate expression is too limited;
+ * Remove GLPK Java: it requires architecture dependent binaries to be present in order to run properly, and can be replaced with ojAlgo;
+
+## Release version 2.1.0
+*2018.02.07*
+
+### New Feature
+ * Add parsington 1.0.1
+
 ## Release version 2.0.0
-*2018.02.XX*
- 
+*2018.02.05*
+
 ### Changes
  * Upate JGrapht to 1.1.0
  * Update p2-maven-plugin to 1.3.0
