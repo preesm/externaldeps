@@ -10,8 +10,7 @@
   <properties>
     <tycho-version>1.0.0</tycho-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <preesm.maven.repo>https://preesm.github.io/preesm-maven/mavenrepo/</preesm.maven.repo>
-    <preesm.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</preesm.p2.repo>
+    <preesm.p2.repo>http://preesm.insa-rennes.fr/repo/complete/</preesm.p2.repo>
   </properties>
 
   <pluginRepositories>
@@ -22,13 +21,8 @@
   </pluginRepositories>
 
   <!-- Use this section to declare new maven repository (where the third
-    party libraries are) -->
+    party libraries are stored) -->
   <repositories>
-    <repository>
-      <id>Maven Central</id>
-      <url>http://central.maven.org/maven2/</url>
-    </repository>
-
     <repository>
       <id>XypronRelease</id>
       <url>https://www.xypron.de/repository</url>
@@ -43,9 +37,7 @@
       <id>Boundless Repository</id>
       <url>https://repo.boundlessgeo.com/main/</url>
     </repository>
-
   </repositories>
-
 
   <build>
     <plugins>
