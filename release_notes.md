@@ -5,8 +5,10 @@ ExternalDeps Changelog
 *2018.03.29*
 
 ### Changes Feature
- * Remove parsington 1.0.1: its capacity to evaluate expression is too limited;
- * Remove GLPK Java: it requires architecture dependent binaries to be present in order to run properly, and can be replaced with ojAlgo;
+* Remove parsington 1.0.1: its capacity to evaluate expression is too limited;
+* Remove GLPK Java: it requires architecture dependent binaries to be present in order to run properly, and can be replaced with ojAlgo;;
+* Move deploy server to preesm.insa-rennes.fr;
+* Update project info (URL);
 
 ## Release version 2.1.0
 *2018.02.07*
