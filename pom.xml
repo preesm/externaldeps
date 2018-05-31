@@ -109,6 +109,16 @@
                   <id>org.apache.velocity:velocity:jar:1.7</id>
                   <source>true</source>
                 </artifact>
+                <artifact>
+                  <!-- MIT -->
+                  <id>org.slf4j:slf4j-simple:jar:1.7.25</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <!-- MIT -->
+                  <id>org.slf4j:slf4j-api:jar:1.7.25</id>
+                  <source>true</source>
+                </artifact>
 
                 <artifact>
                   <!-- MIT -->
