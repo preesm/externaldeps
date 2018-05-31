@@ -1,6 +1,15 @@
 ExternalDeps Changelog
 ======================
 
+## Release version 3.1.0
+*2018.05.31*
+
+### New Feature
+ * Add Apache Velocity 1.7;
+
+### Changes Feature
+ * Update apache commons lang3, jgrapht, ojalgo;
+
 ## Release version 3.0.0
 *2018.03.29*
 
