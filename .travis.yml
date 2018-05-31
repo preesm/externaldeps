@@ -29,10 +29,10 @@ jobs:
       script: mvn -U -e -C -B -V help:help -q
     - stage : Fetch Maven Dependencies
       script: mvn -U -e -C -B -V dependency:go-offline
-    - stage : Clean (offline)
-      script: mvn --offline -e -C -B -V clean
-    - stage : Package (offline, no tests)
-      script: mvn --offline -e -C -B -V package -fae
+    - stage : Clean
+      script: mvn -e -C -B -V clean
+    - stage : Package
+      script: mvn -e -C -B -V package -fae
 
 #skip install step before each stage by running the /bin/true command
 install: true
