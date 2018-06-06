@@ -5,7 +5,7 @@
   <groupId>org.ietr.externaldeps</groupId>
   <artifactId>org.ietr.externaldeps.site</artifactId>
   <packaging>pom</packaging>
-  <version>3.1.0</version>
+  <version>3.2.0</version>
 
   <properties>
     <tycho-version>1.0.0</tycho-version>
@@ -201,6 +201,17 @@
                 <artifact>
                   <!-- Apache 2.0 : http://www.apache.org/licenses/LICENSE-2.0.txt  -->
                   <id>org.apache.commons:commons-lang3:jar:3.7</id>
+                  <source>true</source>
+                </artifact>
+
+                <artifact>
+                  <!-- -->
+                  <id>com.fasterxml.jackson.core:jackson-core:jar:2.9.5</id>
+                  <source>true</source>
+                </artifact>
+                <artifact>
+                  <!-- -->
+                  <id>com.fasterxml.jackson.module:jackson-module-jsonSchema:jar:2.9.5</id>
                   <source>true</source>
                 </artifact>
 

@@ -1,6 +1,15 @@
 ExternalDeps Changelog
 ======================
 
+## Release version 3.2.0
+*2018.06.06*
+
+### New Feature
+ * Add Jackson utilities (for JSON manipulation);
+
+### Changes Feature
+
+
 ## Release version 3.1.0
 *2018.05.31*
 
