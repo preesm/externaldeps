@@ -14,25 +14,9 @@ notifications:
     on_success: change
     on_failure: always
 
-#######################
-# Actual build stages
-#######################
-# The following job can be reproduced on any machine in a single line
-# with the following:
-#
-# mvn -U -e -C -V clean package -fae
-#######################
 
-jobs:
-  include:
-    - stage : Validate POM
-      script: mvn -U -e -C -B -V help:help -q
-    - stage : Fetch Maven Dependencies
-      script: mvn -U -e -C -B -V dependency:go-offline
-    - stage : Clean
-      script: mvn -e -C -B -V clean
-    - stage : Package
-      script: mvn -e -C -B -V package -fae
+script: 
+  - mvn -e -C -B -V clean package -fae
 
 #skip install step before each stage by running the /bin/true command
 install: true
