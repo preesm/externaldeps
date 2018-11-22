@@ -2,13 +2,41 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.ietr.externaldeps</groupId>
-  <artifactId>org.ietr.externaldeps.site</artifactId>
+  <groupId>org.preesm.externaldeps</groupId>
+  <artifactId>org.preesm.externaldeps.site</artifactId>
   <packaging>pom</packaging>
-  <version>3.3.0</version>
+  <version>3.4.0</version>
+
+  <!-- More Project Information -->
+  <name>Preesm :: External Dependencies</name>
+  <description>Graphiti is a generic graph editor created by IETR/INSA - Rennes shipped as an Eclipse plug-in.</description>
+  <url>http://preesm.org/</url>
+
+  <licenses>
+    <license>
+      <name>CeCILL-C License, Version 1.0</name>
+      <url>http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt</url>
+      <distribution>repo</distribution>
+      <comments>CeCILL is a free software license adapted to both international and French legal matters, in the spirit of and retaining compatibility with the GNU General Public License.</comments>
+    </license>
+  </licenses>
+  <organization>
+    <name>IETR / INSA Rennes - VAADER</name>
+    <url>https://www.ietr.fr/spip.php?article1619&amp;lang=en</url>
+  </organization>
+
+  <!-- Environment Settings -->
+  <issueManagement>
+    <url>https://github.com/preesm/externaldeps/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+
+  <scm>
+    <url>https://github.com/preesm/externaldeps</url>
+  </scm>
 
   <properties>
-    <tycho-version>1.0.0</tycho-version>
+    <tycho-version>1.2.0</tycho-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <preesm.p2.repo>http://preesm.insa-rennes.fr/repo/complete/</preesm.p2.repo>
   </properties>
@@ -264,7 +292,9 @@
               <goal>generate-feature</goal>
             </goals>
             <configuration>
-              <featureProvider>IETR/INSA Rennes</featureProvider>
+              <featureId>thirdparty</featureId>
+              <featureName>Preesm Third Party Dependencies</featureName>
+              <featureProvider>IETR / INSA Rennes - VAADER</featureProvider>
               <outputDirectory>${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}</outputDirectory>
             </configuration>
           </execution>
