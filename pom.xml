@@ -39,15 +39,15 @@
    <properties>
       <tycho-version>1.2.0</tycho-version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <preesm.p2.repo>http://preesm.insa-rennes.fr/repo/</preesm.p2.repo>
+      <updatesite.preesm>http://preesm.insa-rennes.fr/repo/</updatesite.preesm>
 
 
       <generate-composite-site.compositeSiteFolder>composite</generate-composite-site.compositeSiteFolder>
       <generate-composite-site.childSites>
-         ${preesm.p2.repo}/${project.groupId}/${project.groupId}-${project.version}/
+         ${updatesite.preesm}/${project.groupId}/${project.groupId}-${project.version}/
       </generate-composite-site.childSites>
       <generate-composite-site.collectChildrenFromRemoteURL>
-         ${preesm.p2.repo}/${project.groupId}/
+         ${updatesite.preesm}/${project.groupId}/
       </generate-composite-site.collectChildrenFromRemoteURL>
       <generate-composite-site.collectChildrenFromRemoteRegex>org\.(.*)\d+\.\d+\.\d+/</generate-composite-site.collectChildrenFromRemoteRegex>
    </properties>
