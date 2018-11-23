@@ -6,7 +6,7 @@
    <groupId>org.preesm.externaldeps</groupId>
    <artifactId>org.preesm.externaldeps.site</artifactId>
    <packaging>pom</packaging>
-   <version>3.4.0</version>
+   <version>3.4.1</version>
 
    <!-- More Project Information -->
    <name>Preesm :: External Dependencies</name>
@@ -39,15 +39,15 @@
    <properties>
       <tycho-version>1.2.0</tycho-version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <preesm.p2.repo>http://preesm.insa-rennes.fr/repo_test/</preesm.p2.repo>
+      <preesm.p2.repo>http://preesm.insa-rennes.fr/repo/</preesm.p2.repo>
 
 
       <generate-composite-site.compositeSiteFolder>composite</generate-composite-site.compositeSiteFolder>
       <generate-composite-site.childSites>
-         http://preesm.insa-rennes.fr/repo_test/${project.groupId}/${project.groupId}-${project.version}/
+         ${preesm.p2.repo}/${project.groupId}/${project.groupId}-${project.version}/
       </generate-composite-site.childSites>
       <generate-composite-site.collectChildrenFromRemoteURL>
-         ${preesm.p2.repo}
+         ${preesm.p2.repo}/${project.groupId}/
       </generate-composite-site.collectChildrenFromRemoteURL>
       <generate-composite-site.collectChildrenFromRemoteRegex>org\.(.*)\d+\.\d+\.\d+/</generate-composite-site.collectChildrenFromRemoteRegex>
    </properties>
@@ -348,30 +348,6 @@
             <artifactId>repository-utils</artifactId>
             <version>1.1.0</version>
             <executions>
-               <!-- creates index.html and other artifacts -->
-               <!-- see https://github.com/jbosstools/jbosstools-maven-plugins/wiki -->
-               <execution>
-                  <id>generate-facade</id>
-                  <phase>package</phase>
-                  <goals>
-                     <goal>generate-repository-facade</goal>
-                  </goals>
-                  <configuration>
-                     <siteTemplateFolder>siteTemplateFolder</siteTemplateFolder>
-                     <!-- configuration options for the generated HTML page -->
-                     <symbols>
-                        <update.site.name>
-                          Preesm Third Party Dependencies
-                        </update.site.name>
-                        <update.site.description>Eclipse</update.site.description>
-                        <update.site.version>${qualifiedVersion}</update.site.version>
-                     </symbols>
-
-                     <!-- to remove the default category created for any 
-                        uncategorized features or bundles, set this to true -->
-                     <removeDefaultCategory>true</removeDefaultCategory>
-                  </configuration>
-               </execution>
                <execution>
                   <id>generate-composite</id>
                   <phase>package</phase>
@@ -398,7 +374,7 @@
                      <strictHostKeyChecking>false</strictHostKeyChecking>
                      <mode>send</mode>
                      <localPath>${project.build.directory}/gensite/update-site/</localPath>
-                     <remotePath>/repo_test/${project.groupId}/</remotePath>
+                     <remotePath>/repo/${project.groupId}/</remotePath>
                   </configuration>
                   <goals>
                      <goal>sftp-transfert</goal>
@@ -414,7 +390,7 @@
                      <strictHostKeyChecking>false</strictHostKeyChecking>
                      <mode>send</mode>
                      <localPath>${project.build.directory}/composite/</localPath>
-                     <remotePath>/repo_test/${project.groupId}/</remotePath>
+                     <remotePath>/repo/${project.groupId}/</remotePath>
                   </configuration>
                   <goals>
                      <goal>sftp-transfert</goal>
