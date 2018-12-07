@@ -6,7 +6,7 @@
    <groupId>org.preesm.externaldeps</groupId>
    <artifactId>org.preesm.externaldeps.site</artifactId>
    <packaging>pom</packaging>
-   <version>3.4.1</version>
+   <version>3.5.0</version>
 
    <!-- More Project Information -->
    <name>Preesm :: External Dependencies</name>
@@ -40,7 +40,6 @@
       <tycho-version>1.2.0</tycho-version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <updatesite.preesm>http://preesm.insa-rennes.fr/repo/</updatesite.preesm>
-
 
       <generate-composite-site.compositeSiteFolder>composite</generate-composite-site.compositeSiteFolder>
       <generate-composite-site.childSites>
@@ -144,6 +143,12 @@
                         <artifact>
                            <!-- BSD -->
                            <id>jgraph:jgraph:jar:5.13.0.0</id>
+                           <source>true</source>
+                        </artifact>
+
+                        <artifact>
+                           <!-- LGPL -->
+                           <id>de.uni-mannheim.rz.krum:jas:jar:2.6.5961</id>
                            <source>true</source>
                         </artifact>
 
@@ -299,7 +304,7 @@
          <plugin>
             <groupId>org.preesm.maven</groupId>
             <artifactId>genfeature-maven-plugin</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
             <executions>
                <execution>
                   <phase>package</phase>
