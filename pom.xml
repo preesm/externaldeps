@@ -256,6 +256,11 @@
                            <id>org.apache.commons:commons-lang3:jar:3.8.1</id>
                            <source>true</source>
                         </artifact>
+                        <artifact>
+                           <!-- Apache 2.0 : http://www.apache.org/licenses/LICENSE-2.0.txt -->
+                           <id>xerces:xercesImpl:jar:2.12.0</id>
+                           <source>true</source>
+                        </artifact>
 
                         <artifact>
                            <!-- -->
