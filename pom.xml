@@ -6,7 +6,7 @@
    <groupId>org.preesm.externaldeps</groupId>
    <artifactId>org.preesm.externaldeps.site</artifactId>
    <packaging>pom</packaging>
-   <version>3.5.1</version>
+   <version>3.6.0</version>
 
    <!-- More Project Information -->
    <name>Preesm :: External Dependencies</name>
