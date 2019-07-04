@@ -16,7 +16,7 @@ notifications:
 
 
 script: 
-  - mvn -e -C -B -V clean package -fae
+  - mvn -e -c -B -V clean package -fae
 
 #skip install step before each stage by running the /bin/true command
 install: true
