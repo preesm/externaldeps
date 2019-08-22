@@ -139,7 +139,7 @@ See [release notes](release_notes.md).
 
 ## Contacts
 
-This project is maintained by the Preesm maintainers. A list of contact is available here http://preesm.sourceforge.net/
+See https://preesm.github.io/about/#contact--follow
 
 ## License
 
